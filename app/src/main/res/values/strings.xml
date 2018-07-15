@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GetHub</string>
+
+    <string name="sign_in_id_hint">Nickname</string>
+    <string name="sign_in_password_hit">Password</string>
+    <string name="sign_in_button_text">SIGN IN</string>
+</resources>
