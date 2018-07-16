@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInActivity">
+    tools:context=".ui.SignInActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iconCircleView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="148dp"
         android:src="@drawable/ic_github"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -18,86 +18,69 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <android.support.v7.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
         android:layout_margin="30dp"
         app:cardElevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iconCircleView"
-        app:layout_constraintVertical_bias="0.227">
+        app:layout_constraintVertical_bias="0.511">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="56dp"
-            android:gravity="fill_vertical|center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iconCircleView"
-            app:layout_constraintVertical_bias="0.258">
+            android:layout_height="match_parent">
 
-            <android.support.design.widget.TextInputLayout
+            <TextView
+                android:id="@+id/selectAuthTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_authentication"
+                app:layout_constraintBottom_toTopOf="@id/authLinearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/authLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/idTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/sign_in_id_hint"
-                    android:inputType="text"
-                    android:paddingEnd="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingStart="10dp" />
-
-            </android.support.design.widget.TextInputLayout>
+                android:layout_margin="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/selectAuthTextView">
 
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp">
+                <Button
+                    android:id="@+id/oauthButton"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/oauth_button_text" />
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/passwordTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="5dp"
-                    android:ems="10"
-                    android:hint="@string/sign_in_password_hit"
-                    android:inputType="textPassword"
-                    android:paddingEnd="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingStart="10dp" />
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="1dp"
+                    android:layout_height="80dp"
+                    android:background="@android:color/darker_gray" />
 
-            </android.support.design.widget.TextInputLayout>
+                <Button
+                    android:id="@+id/basicAuthButton"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/basic_auth_button_text" />
+            </LinearLayout>
 
 
-            <Button
-                android:id="@+id/signInButton"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="@string/sign_in_button_text" />
-
-        </LinearLayout>
-
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
-
 </android.support.constraint.ConstraintLayout>
