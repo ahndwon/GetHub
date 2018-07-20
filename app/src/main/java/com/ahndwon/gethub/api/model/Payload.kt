@@ -1,3 +1,4 @@
 package com.ahndwon.gethub.api.model
 
-class Payload(val action: String)
+data class Payload(val action: String,
+        val forkee: Forkee)

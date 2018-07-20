@@ -64,8 +64,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             toast(t.localizedMessage)
             Log.d(TAG, "localizedMessage" + t.localizedMessage)
         })
-
-
     }
 
     override fun onBackPressed() {

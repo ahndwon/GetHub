@@ -30,15 +30,20 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
 
             itemUserName.text = item.actor.login
             itemCreatedAt.text = item.createdAt
+            itemEventContent.text = defineEvent(item)
+        }
+    }
 
-                        itemEventContent.text =
-                            when(item.watchType) {
-                                "WatchEvent"
-                                -> "${item.actor.login} starred ${item.repo.name}"
-                                "CreateEvent"
-                                -> "${item.actor.login} created repository ${item.repo.name}"
-                                else -> "event not defined"
-                            }
+    private fun defineEvent(item: Event): CharSequence {
+        val itemActor = item.actor.login
+        when (item.watchType) {
+            "WatchEvent"
+            -> return "$itemActor starred ${item.repo.name}"
+            "CreateEvent"
+            -> return "$itemActor created repository ${item.repo.name}"
+            "ForkEvent"
+            -> return "$itemActor forked repository ${item.payload.forkee.fullName}"
+            else -> return "event not defined"
         }
     }
 }
