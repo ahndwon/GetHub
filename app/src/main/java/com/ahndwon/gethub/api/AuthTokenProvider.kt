@@ -18,7 +18,7 @@ fun updateToken(context: Context, token: String) {
             .apply()
 }
 
-fun getToken(context: Context) : String? {
+fun getToken(context: Context): String? {
     return PreferenceManager.getDefaultSharedPreferences(context)
             .getString(KEY_AUTH_TOKEN, null)
 }
@@ -33,9 +33,7 @@ val authApi: AuthApi = Retrofit.Builder().apply {
 class AuthInterceptor(private val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
-
         val request = original.newBuilder().apply {
-
             getToken(context)?.let { token ->
                 addHeader("Authorization", "bearer $token")
             }

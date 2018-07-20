@@ -6,14 +6,17 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.provideEventsApi
+import com.ahndwon.gethub.ui.adapter.EventListAdapter
 import com.ahndwon.gethub.utils.enqueue
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
+import kotlinx.android.synthetic.main.content_home.*
 import org.jetbrains.anko.toast
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -21,13 +24,17 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val TAG = HomeActivity::class.java.simpleName
     }
 
-
+    lateinit var listAdapter: EventListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
-        getSupportActionBar()!!.setTitle(null);
+        getSupportActionBar()!!.setTitle(null)
+
+        listAdapter = EventListAdapter()
+        homeRecyclerView.adapter = listAdapter
+        homeRecyclerView.layoutManager = LinearLayoutManager(this)
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -38,6 +45,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val eventsApi = provideEventsApi(this)
         val call = eventsApi.getEvents()
+        Log.i(TAG, "got events")
         call.enqueue({ response ->
             val statusCode = response.code()
             Log.i(TAG, statusCode.toString())
@@ -45,7 +53,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (statusCode == 200) {
                 val result = response.body()
                 result?.let {
-                    Log.i(TAG, "items" + it.items.toString())
+                    listAdapter.events = it
+                    listAdapter.notifyDataSetChanged()
                 }
             } else {
                 toast("error - $statusCode")
