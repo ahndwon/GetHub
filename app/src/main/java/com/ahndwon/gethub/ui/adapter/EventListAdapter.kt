@@ -1,6 +1,7 @@
 package com.ahndwon.gethub.ui.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.model.Event
@@ -30,28 +31,21 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
                     .placeholder(R.drawable.ic_github)
                     .into(itemAvatar)
 
+
             itemUserName.text = item.actor.login
-//            itemCreatedAt.text = item.createdAt
             itemCreatedAt.text = getSimpleDate(item.createdAt)
             itemEventContent.text = defineEvent(item)
         }
     }
 
     private fun getSimpleDate(date: String): String {
-//        var splitDate = date.replace("T", "'T'")
-//        splitDate = splitDate.replace("Z", ".000+0900")
-        val splitDate = date.replace("Z", ".000+0900")
-//        return splitDate
-
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.KOREA)
-        val parsedDate = simpleDateFormat.parse(splitDate)
-        return parsedDate.toString()
-//        val sdf = SimpleDateFormat("EEE, MMM d, ''yy", Locale.KOREA)
-//        val formattedDate = parsedDate.time.toString()
-//        return formattedDate
-//        return simpleDateFormat.toString()
-//        return ""
-
+        val timeZone = TimeZone.getDefault()
+        val splitDate = date.replace("Z", ".000" + timeZone.displayName)
+        println(splitDate)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
+        val parsedDate = dateFormat.parse(splitDate)
+        val simpleDate = SimpleDateFormat("EEE, MMM d, HH:mm", Locale.getDefault())
+        return simpleDate.format(parsedDate)
     }
 
     private fun defineEvent(item: Event): CharSequence {
