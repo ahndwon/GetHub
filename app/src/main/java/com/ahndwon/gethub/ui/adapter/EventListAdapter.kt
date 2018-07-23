@@ -1,7 +1,8 @@
 package com.ahndwon.gethub.ui.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
+import android.text.Spannable
+import android.text.SpannableStringBuilder
 import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.model.Event
@@ -52,12 +53,30 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
         val itemActor = item.actor.login
         when (item.watchType) {
             "WatchEvent"
-            -> return "$itemActor starred ${item.repo.name}"
+            -> return makeEventString(itemActor, "starred", item.repo.name)
             "CreateEvent"
-            -> return "$itemActor created repository ${item.repo.name}"
+            -> return makeEventString(itemActor, "created repository", item.repo.name)
             "ForkEvent"
-            -> return "$itemActor forked repository ${item.payload.forkee.fullName}"
+            -> return makeEventString(itemActor, "forked repository", item.payload.forkee.fullName)
             else -> return "event not defined"
         }
+    }
+
+    private fun makeEventString(firstText: String, middleText: String, lastText: String)
+            : SpannableStringBuilder {
+        val firstString = SpannableStringBuilder(firstText)
+        firstString.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                    0, firstText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        val middleString = SpannableStringBuilder(middleText)
+
+        val lastString = SpannableStringBuilder(lastText)
+        lastString.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                0, lastText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        firstString.append(" ")
+                .append(middleString)
+                .append(" ")
+                .append(lastString)
+
+        return firstString
     }
 }
