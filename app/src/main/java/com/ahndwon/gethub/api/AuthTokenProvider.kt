@@ -37,7 +37,6 @@ class AuthInterceptor(private val context: Context) : Interceptor {
             getToken(context)?.let { token ->
                 addHeader("Authorization", "bearer $token")
             }
-
         }.build()
 
         return chain.proceed(request)

@@ -32,12 +32,30 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
                     .placeholder(R.drawable.ic_github)
                     .into(itemAvatar)
 
-
             itemUserName.text = item.actor.login
             itemCreatedAt.text = getSimpleDate(item.createdAt)
             itemEventContent.text = defineEvent(item)
+//            itemIcon.setImageDrawable(getIconImage(item.watchType))
+
         }
     }
+//
+//    private fun getIconImage(watchType: String): Drawable? {
+//        when (watchType) {
+//            "WatchEvent" -> return getDrawable(Resources.getSystem(),
+//                    R.drawable.ic_star, theme)
+//            "CreateEvent" -> return getDrawable(Resources.getSystem(),
+//                    R.drawable.ic_repo, Resources.getSystem().newTheme())
+//            "ForkEvent" -> return getDrawable(Resources.getSystem(),
+//                    R.drawable.ic_repo_forked, Resources.getSystem().newTheme())
+//            "MemberEvent" -> return getDrawable(Resources.getSystem(),
+//                    R.drawable.ic_person, null)
+//            else -> {
+//                IllegalStateException("not defined event")
+//                return null
+//            }
+//        }
+//    }
 
     private fun getSimpleDate(date: String): String {
         val timeZone = TimeZone.getDefault()
@@ -57,8 +75,26 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
             "CreateEvent"
             -> return makeEventString(itemActor, "created repository", item.repo.name)
             "ForkEvent"
-            -> return makeEventString(itemActor, "forked repository", item.payload.forkee.fullName)
-            else -> return "event not defined"
+            -> return makeEventString(itemActor, "forked repository", item.repo.name)
+            "MemberEvent"
+            -> {
+                val actorName = SpannableStringBuilder(itemActor)
+                val action = SpannableStringBuilder(item.payload.action)
+                action.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                        0, item.payload.action.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                val member = SpannableStringBuilder(item.payload.member.login)
+                val repository = SpannableStringBuilder(item.repo.name)
+                return SpannableStringBuilder().apply {
+                    append(actorName)
+                    append(" ")
+                    append(action)
+                    append(" ")
+                    append(member)
+                    append(" as a collaborator to ")
+                    append(repository)
+                }
+            }
+            else -> return "not defined event"
         }
     }
 
@@ -66,7 +102,7 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
             : SpannableStringBuilder {
         val firstString = SpannableStringBuilder(firstText)
         firstString.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                    0, firstText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                0, firstText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         val middleString = SpannableStringBuilder(middleText)
 
         val lastString = SpannableStringBuilder(lastText)

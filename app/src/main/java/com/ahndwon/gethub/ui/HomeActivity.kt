@@ -13,19 +13,22 @@ import android.view.Menu
 import android.view.MenuItem
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.provideEventsApi
+import com.ahndwon.gethub.api.provideUserApi
 import com.ahndwon.gethub.ui.adapter.EventListAdapter
 import com.ahndwon.gethub.ui.adapter.SectionsPageAdapter
+import com.ahndwon.gethub.utils.GlideApp
 import com.ahndwon.gethub.utils.enqueue
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import kotlinx.android.synthetic.main.content_home.*
+import kotlinx.android.synthetic.main.item_home.view.*
+import kotlinx.android.synthetic.main.nav_header_home.*
 import org.jetbrains.anko.toast
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
         val TAG = HomeActivity::class.java.simpleName
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +42,31 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tabs.setupWithViewPager(container)
 
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+                this, drawer_layout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        val userApi = provideUserApi(this)
+        val userCall = userApi.getUser()
+        userCall.enqueue({response ->
+            val statusCode = response.code()
+            if (statusCode == 200) {
+                val result = response.body()
+                result?.let {
+                    GlideApp.with(this)
+                            .load(it.avatarUrl)
+                            .placeholder(R.drawable.ic_github)
+                            .into(navAvatar)
+                    navName.text = it.name
+                    navLogin.text = it.login
+                }
+            }
+        },{
+
+        })
     }
 
     override fun onBackPressed() {
