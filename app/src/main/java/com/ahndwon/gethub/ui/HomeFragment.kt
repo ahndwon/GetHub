@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ProgressBar
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.provideEventsApi
-import com.ahndwon.gethub.api.provideUserApi
 import com.ahndwon.gethub.ui.adapter.EventListAdapter
+import com.ahndwon.gethub.utils.MyProgressBar
 import com.ahndwon.gethub.utils.enqueue
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -24,14 +21,8 @@ class HomeFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val progressBar = ProgressBar(activity!!.applicationContext, null,
-                android.R.attr.progressBarStyleLarge)
-        progressBar.indeterminateDrawable.setColorFilter(resources.getColor(R.color.colorAccent),
-                android.graphics.PorterDuff.Mode.MULTIPLY)
-        val params = FrameLayout.LayoutParams(200, 200)
-        params.gravity = Gravity.CENTER
-        view.homeFragment.addView(progressBar, params)
-        progressBar.visibility = View.VISIBLE
+        val progressBar = MyProgressBar(activity!!.applicationContext, view.homeFragment)
+        progressBar.view.visibility = View.VISIBLE
 
         listAdapter = EventListAdapter()
         view.homeRecyclerView.adapter = listAdapter
@@ -40,7 +31,7 @@ class HomeFragment : Fragment() {
         val eventsApi = provideEventsApi(activity!!.applicationContext)
         val eventsCall = eventsApi.getEvents()
         eventsCall.enqueue({ response ->
-            progressBar.visibility = View.GONE
+            progressBar.view.visibility = View.GONE
             val statusCode = response.code()
             Log.i(HomeActivity.TAG, statusCode.toString())
 
