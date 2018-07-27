@@ -1,4 +1,4 @@
-package com.ahndwon.gethub.ui
+package com.ahndwon.gethub.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.provideEventsApi
+import com.ahndwon.gethub.ui.HomeActivity
 import com.ahndwon.gethub.ui.adapter.EventListAdapter
 import com.ahndwon.gethub.utils.MyProgressBar
 import com.ahndwon.gethub.utils.enqueue
@@ -41,8 +42,6 @@ class HomeFragment : Fragment() {
                     listAdapter.events = it
                     listAdapter.notifyDataSetChanged()
                 }
-            } else {
-//                toast("error - $statusCode")
             }
         }, { t ->
             //            toast(t.localizedMessage)

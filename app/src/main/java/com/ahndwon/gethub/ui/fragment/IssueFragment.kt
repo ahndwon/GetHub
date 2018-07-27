@@ -1,4 +1,4 @@
-package com.ahndwon.gethub.ui
+package com.ahndwon.gethub.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,12 +10,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.provideIssueApi
+import com.ahndwon.gethub.ui.HomeActivity
 import com.ahndwon.gethub.ui.adapter.SectionsPageAdapter
 import com.ahndwon.gethub.utils.MyProgressBar
 import com.ahndwon.gethub.utils.enqueue
-import kotlinx.android.synthetic.main.content_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.fragment_issue.*
 import kotlinx.android.synthetic.main.fragment_issue.view.*
 
 class IssueFragment : Fragment() {
@@ -32,14 +30,16 @@ class IssueFragment : Fragment() {
         val progressBar = MyProgressBar(activity!!.applicationContext, view.issueContainer)
         progressBar.view.visibility = View.VISIBLE
 
-
-
         val issueApi = provideIssueApi(activity!!.applicationContext)
         val issueCall = issueApi.getIssue()
         issueCall.enqueue({ response ->
             progressBar.view.visibility = View.GONE
             val statusCode = response.code()
-            Log.i(TAG, statusCode.toString())
+            Log.i(TAG, "statusCode : ${statusCode.toString()}")
+            Toast.makeText(activity!!.applicationContext, "$TAG enqueue",
+            Toast.LENGTH_SHORT).show()
+
+
 
             if (statusCode == 200) {
                 val result = response.body()
@@ -51,7 +51,9 @@ class IssueFragment : Fragment() {
                 }
             }
         }, {
-            Toast.makeText(activity!!.applicationContext, "Issue Fragment",
+            Log.i(TAG, "enqueue failure")
+            Log.d(HomeActivity.TAG, "localizedMessage" + it.localizedMessage)
+            Toast.makeText(activity!!.applicationContext, "Enqueue Failure",
                     Toast.LENGTH_SHORT).show()
         })
         return view

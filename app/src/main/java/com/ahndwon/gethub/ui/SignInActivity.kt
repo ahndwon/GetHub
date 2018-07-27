@@ -41,6 +41,7 @@ class SignInActivity : AppCompatActivity() {
                 .appendPath("oauth")
                 .appendPath("authorize")
                 .appendQueryParameter("client_id", CLIENT_ID)
+                .appendQueryParameter("scope", "repo")
                 .build()
 
 
@@ -62,13 +63,14 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun getAccessToken(code: String) {
-        Log.i(TAG, "getAccessToken: $code")
+        Log.i(TAG, "code: $code")
 
         val call = authApi.getAccessToken(CLIENT_ID, CLIENT_SECRET, code)
         call.enqueue({
             it.body()?.let {
                 updateToken(this, it.accessToken)
                 toast("로그인에 성공했습니다.")
+                Log.i(TAG, "Access Token : ${it.accessToken}")
 
                 startActivity<HomeActivity>()
             }

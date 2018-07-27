@@ -1,45 +1,65 @@
 package com.ahndwon.gethub.ui
 
+import android.graphics.PorterDuff
+import android.opengl.Visibility
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.design.widget.TabLayout
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.ahndwon.gethub.R
-import com.ahndwon.gethub.api.provideEventsApi
 import com.ahndwon.gethub.api.provideUserApi
-import com.ahndwon.gethub.ui.adapter.EventListAdapter
+import com.ahndwon.gethub.ui.adapter.IconPageAdapter
+import com.ahndwon.gethub.ui.fragment.HomeFragment
+import com.ahndwon.gethub.ui.fragment.IssueFragment
+import com.ahndwon.gethub.ui.fragment.ProfileFragment
+import com.ahndwon.gethub.ui.fragment.PullRequestFragment
 import com.ahndwon.gethub.ui.adapter.SectionsPageAdapter
 import com.ahndwon.gethub.utils.GlideApp
 import com.ahndwon.gethub.utils.enqueue
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_sign_in.view.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import kotlinx.android.synthetic.main.content_home.*
-import kotlinx.android.synthetic.main.item_home.view.*
 import kotlinx.android.synthetic.main.nav_header_home.*
-import org.jetbrains.anko.toast
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
-        val TAG = HomeActivity::class.java.simpleName
+        val TAG: String = HomeActivity::class.java.simpleName
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
-        getSupportActionBar()!!.setTitle(null)
+        supportActionBar!!.title = null
 
-        val sectionsPageAdapter = SectionsPageAdapter(supportFragmentManager)
-        setupViewPager(container)
+        val adapter = IconPageAdapter(supportFragmentManager)
+        setupViewPager(container, adapter)
 
         tabs.setupWithViewPager(container)
+        setTabIcons()
+        tabs.setSelectedTabIndicatorHeight(0)
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                tab.icon?.setColorFilter(resources.getColor(R.color.black), PorterDuff.Mode.SRC_IN)
+                tab.text = ""
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                tab.icon?.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+                tab.text = adapter.fragmentTitleList[tab.position]
+            }
+        })
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar,
@@ -49,9 +69,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
 
+
         val userApi = provideUserApi(this)
         val userCall = userApi.getUser()
-        userCall.enqueue({response ->
+        userCall.enqueue({ response ->
             val statusCode = response.code()
             if (statusCode == 200) {
                 val result = response.body()
@@ -64,10 +85,18 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     navLogin.text = it.login
                 }
             }
-        },{
+        }, {
 
         })
     }
+
+    private fun setTabIcons() {
+        tabs.getTabAt(0)?.setIcon(R.drawable.ic_home)
+        tabs.getTabAt(1)?.setIcon(R.drawable.ic_issue_opened)
+        tabs.getTabAt(2)?.setIcon(R.drawable.ic_pull_request)
+        tabs.getTabAt(3)?.setIcon(R.drawable.ic_person)
+    }
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -120,8 +149,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun setupViewPager(viewPager: ViewPager) {
-        val adapter = SectionsPageAdapter(supportFragmentManager)
+    private fun setupViewPager(viewPager: ViewPager, adapter: IconPageAdapter) {
         adapter.addFragment(HomeFragment(), "Home")
         adapter.addFragment(IssueFragment(), "Issue")
         adapter.addFragment(PullRequestFragment(), "Pull Request")

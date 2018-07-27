@@ -1,4 +1,4 @@
-package com.ahndwon.gethub.ui
+package com.ahndwon.gethub.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

@@ -10,19 +10,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 class AuthInterceptor(private val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
-
         val request = original.newBuilder().apply {
-
             getToken(context)?.let { token ->
-                addHeader("Authorization", "bearer $token")
+                addHeader("Authorization", "Bearer $token")
             }
-
         }.build()
 
         return chain.proceed(request)
     }
 }
-
 
 val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
     level = HttpLoggingInterceptor.Level.BODY

@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
-class SectionsPageAdapter(fn: FragmentManager) : FragmentPagerAdapter(fn) {
+class IconPageAdapter(fn: FragmentManager) : FragmentPagerAdapter(fn) {
     private val fragmentList : ArrayList<Fragment> = arrayListOf()
-    private val fragmentTitleList : ArrayList<String> = arrayListOf()
+    val fragmentTitleList : ArrayList<String> = arrayListOf()
 
     fun addFragment(fragment: Fragment, title: String) {
         fragmentList.add(fragment)
@@ -14,7 +14,7 @@ class SectionsPageAdapter(fn: FragmentManager) : FragmentPagerAdapter(fn) {
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return fragmentTitleList[position]
+        return null
     }
 
     override fun getItem(position: Int): Fragment {
@@ -24,4 +24,6 @@ class SectionsPageAdapter(fn: FragmentManager) : FragmentPagerAdapter(fn) {
     override fun getCount(): Int {
         return fragmentList.size
     }
+
+
 }

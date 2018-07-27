@@ -1,4 +1,4 @@
-package com.ahndwon.gethub.ui
+package com.ahndwon.gethub.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.ui.adapter.SectionsPageAdapter
 import kotlinx.android.synthetic.main.fragment_created.view.*
-import kotlinx.android.synthetic.main.fragment_issue.view.*
 
 class CreatedFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
