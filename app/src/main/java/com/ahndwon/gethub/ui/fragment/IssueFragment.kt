@@ -52,7 +52,7 @@ class IssueFragment : Fragment() {
             }
         }, {
             Log.i(TAG, "enqueue failure")
-            Log.d(HomeActivity.TAG, "localizedMessage" + it.localizedMessage)
+            Log.d(TAG, "localizedMessage" + it.localizedMessage)
             Toast.makeText(activity!!.applicationContext, "Enqueue Failure",
                     Toast.LENGTH_SHORT).show()
         })
