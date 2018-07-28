@@ -2,7 +2,7 @@ package com.ahndwon.gethub.api.model
 
 data class Issue(val filter: String,
                  val state: String,
-                 val labels: Labels,
+                 val labels: List<Labels>,
                  val user: UserData,
                  val title: String,
                  val body: String,

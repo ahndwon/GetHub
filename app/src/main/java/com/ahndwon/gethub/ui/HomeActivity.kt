@@ -1,6 +1,7 @@
 package com.ahndwon.gethub.ui
 
 import android.graphics.PorterDuff
+import android.graphics.drawable.Icon
 import android.opengl.Visibility
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -45,10 +46,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         tabs.setupWithViewPager(container)
         setTabIcons()
-        tabs.getTabAt(0)?.apply {
-            icon?.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
-            text = adapter.fragmentTitleList[this.position]
+        tabs.getTabAt(0)?.let {
+            setTabSelected(it, adapter)
         }
+
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab) {
 
@@ -60,8 +61,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             override fun onTabSelected(tab: TabLayout.Tab) {
-                tab.icon?.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
-                tab.text = adapter.fragmentTitleList[tab.position]
+                setTabSelected(tab, adapter)
             }
         })
 
@@ -92,6 +92,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }, {
 
         })
+    }
+
+    private fun setTabSelected(tab: TabLayout.Tab, adapter: IconPageAdapter) {
+        tab.icon?.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+        tab.text = adapter.fragmentTitleList[tab.position]
     }
 
     private fun setTabIcons() {

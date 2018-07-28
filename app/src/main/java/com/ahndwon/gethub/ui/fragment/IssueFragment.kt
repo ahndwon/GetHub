@@ -35,11 +35,9 @@ class IssueFragment : Fragment() {
         issueCall.enqueue({ response ->
             progressBar.view.visibility = View.GONE
             val statusCode = response.code()
-            Log.i(TAG, "statusCode : ${statusCode.toString()}")
+            Log.d(TAG, "issue statusCode : $statusCode")
             Toast.makeText(activity!!.applicationContext, "$TAG enqueue",
             Toast.LENGTH_SHORT).show()
-
-
 
             if (statusCode == 200) {
                 val result = response.body()
@@ -51,7 +49,7 @@ class IssueFragment : Fragment() {
                 }
             }
         }, {
-            Log.i(TAG, "enqueue failure")
+            Log.i(TAG, "issue enqueue failure")
             Log.d(TAG, "localizedMessage" + it.localizedMessage)
             Toast.makeText(activity!!.applicationContext, "Enqueue Failure",
                     Toast.LENGTH_SHORT).show()
