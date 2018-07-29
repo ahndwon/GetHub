@@ -1,6 +1,8 @@
 package com.ahndwon.gethub.ui.fragment
 
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
@@ -15,6 +17,21 @@ class CreatedFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_created, container, false)
         setupViewPager(view.createdContainer)
         view.createdTabs.setupWithViewPager(view.createdContainer)
+        view.createdTabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                tab?.customView?.background?.setColorFilter(
+                        resources.getColor(android.R.color.darker_gray), PorterDuff.Mode.SRC_IN)
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
 
         return view
     }

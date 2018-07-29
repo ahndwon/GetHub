@@ -30,10 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@android:color/background_light"
-            app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/browser_actions_title_color"
             app:tabIndicatorColor="@android:color/transparent"
-            />
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="@color/browser_actions_title_color" />
 
     </android.support.design.widget.AppBarLayout>
 

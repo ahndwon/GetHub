@@ -14,10 +14,10 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@android:color/background_light"
+            app:layout_constraintBottom_toTopOf="@+id/issueContainer"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/issueContainer"
             app:tabSelectedTextColor="@color/colorAccent"
             app:tabTextColor="@color/browser_actions_title_color">
 
