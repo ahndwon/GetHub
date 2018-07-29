@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.ahndwon.gethub.api.model.Issue
 import com.ahndwon.gethub.ui.viewholder.IssueViewHolder
+import kotlinx.android.synthetic.main.item_issue.view.*
 
 
 class IssueListAdapter: RecyclerView.Adapter<IssueViewHolder>() {
@@ -21,8 +22,8 @@ class IssueListAdapter: RecyclerView.Adapter<IssueViewHolder>() {
         val item = issues[position]
 
         with(holder.itemView) {
-
+            itemIssueTitle.text = item.title
+            itemIssueDescription.text = item.body
         }
     }
-
 }

@@ -7,5 +7,5 @@ import com.ahndwon.gethub.R
 
 
 class IssueViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_home, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.item_issue, parent, false)
 )

@@ -21,8 +21,8 @@ class CreatedFragment : Fragment() {
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = SectionsPageAdapter(fragmentManager!!)
-        adapter.addFragment(IssueFragment.OpenFragment(), "Open")
-        adapter.addFragment(IssueFragment.ClosedFragment(), "Closed")
+        adapter.addFragment(OpenFragment(), "Open")
+        adapter.addFragment(ClosedFragment(), "Closed")
         viewPager.adapter = adapter
     }
 }
