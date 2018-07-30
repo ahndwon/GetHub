@@ -96,7 +96,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun setTabSelected(tab: TabLayout.Tab, adapter: IconPageAdapter) {
         tab.icon?.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
-        tab.text = adapter.fragmentTitleList[tab.position]
+//        tab.text = adapter.fragmentTitleList[tab.position]
     }
 
     private fun setTabIcons() {

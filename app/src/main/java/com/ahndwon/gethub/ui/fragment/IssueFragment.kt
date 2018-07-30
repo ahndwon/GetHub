@@ -27,9 +27,21 @@ class IssueFragment : Fragment() {
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = SectionsPageAdapter(childFragmentManager)
-        adapter.addFragment(CreatedFragment(), "Created")
-        adapter.addFragment(AssignedFragment(), "Assigned")
-        adapter.addFragment(MentionedFragment(), "Mentioned")
+        adapter.addFragment(CreatedFragment().apply {
+            val args = Bundle()
+            args.putString("isPullRequest", "false")
+            arguments = args
+        }, "Created")
+        adapter.addFragment(AssignedFragment().apply {
+            val args = Bundle()
+            args.putString("isPullRequest", "false")
+            arguments = args
+        }, "Assigned")
+        adapter.addFragment(MentionedFragment().apply {
+            val args = Bundle()
+            args.putString("isPullRequest", "false")
+            arguments = args
+        }, "Mentioned")
         viewPager.adapter = adapter
     }
 }

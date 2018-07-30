@@ -44,7 +44,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }, { t ->
-            //            toast(t.localizedMessage)
             Log.d(HomeActivity.TAG, "localizedMessage" + t.localizedMessage)
         })
 
