@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,9 @@ import com.ahndwon.gethub.ui.adapter.SectionsPageAdapter
 import kotlinx.android.synthetic.main.fragment_assigned.view.*
 
 class AssignedFragment : Fragment() {
+    companion object {
+        val TAG = AssignedFragment::class.java.simpleName
+    }
     lateinit var isPullRequest : String
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -59,5 +63,10 @@ class AssignedFragment : Fragment() {
         adapter.addFragment(openFragment, "Open")
         adapter.addFragment(closedFragment, "Closed")
         viewPager.adapter = adapter
+    }
+
+    override fun onDestroy() {
+        Log.d(TAG, "ondestroy()")
+        super.onDestroy()
     }
 }
