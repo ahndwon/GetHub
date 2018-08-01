@@ -1,4 +1,4 @@
-package com.ahndwon.gethub.ui.fragment
+package com.ahndwon.gethub.ui.fragment.issue
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.model.Issue
-import com.ahndwon.gethub.api.provideIssueApi
+import com.ahndwon.gethub.api.provideGithubApi
 import com.ahndwon.gethub.ui.adapter.IssueListAdapter
 import com.ahndwon.gethub.utils.MyProgressBar
 import com.ahndwon.gethub.utils.enqueue
@@ -54,7 +54,7 @@ class OpenClosedFragment : Fragment() {
 
     private fun callEnqueue(adapter: IssueListAdapter, progressBar: MyProgressBar,
                             filter: String, state: String) {
-        val issueApi = provideIssueApi(activity!!.applicationContext)
+        val issueApi = provideGithubApi(activity!!.applicationContext)
         val issueCall = issueApi.getIssue(filter, state)
 
         issueCall.enqueue({ response ->
@@ -88,10 +88,5 @@ class OpenClosedFragment : Fragment() {
             Toast.makeText(activity!!.applicationContext, "Enqueue Failure",
                     Toast.LENGTH_SHORT).show()
         })
-    }
-
-    override fun onDestroy() {
-        Log.d(TAG, "ondestroy()")
-        super.onDestroy()
     }
 }

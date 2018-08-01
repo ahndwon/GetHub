@@ -14,6 +14,7 @@ import java.util.*
 
 class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
     var events: List<Event> = emptyList()
+    var watchTypes: HashMap<String, (Event) -> SpannableStringBuilder> = HashMap()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         return HomeViewHolder(parent)
@@ -36,10 +37,9 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
             itemCreatedAt.text = getSimpleDate(item.createdAt)
             itemEventContent.text = defineEvent(item)
 //            itemIcon.setImageDrawable(getIconImage(item.watchType))
-
         }
     }
-//
+
 //    private fun getIconImage(watchType: String): Drawable? {
 //        when (watchType) {
 //            "WatchEvent" -> return getDrawable(Resources.getSystem(),
@@ -58,7 +58,7 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
 //    }
 
     private fun getSimpleDate(date: String): String {
-        val timeZone = TimeZone.getDefault()
+        val timeZone = TimeZone.getTimeZone("Africa/Casablanca")
         val splitDate = date.replace("Z", ".000" + timeZone.displayName)
         println(splitDate)
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
@@ -68,51 +68,8 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
     }
 
     private fun defineEvent(item: Event): CharSequence {
-        val itemActor = item.actor.login
-        when (item.watchType) {
-            "WatchEvent"
-            -> return makeEventString(itemActor, "starred", item.repo.name)
-            "CreateEvent"
-            -> return makeEventString(itemActor, "created repository", item.repo.name)
-            "ForkEvent"
-            -> return makeEventString(itemActor, "forked repository", item.repo.name)
-            "MemberEvent"
-            -> {
-                val actorName = SpannableStringBuilder(itemActor)
-                val action = SpannableStringBuilder(item.payload.action)
-                action.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                        0, item.payload.action.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                val member = SpannableStringBuilder(item.payload.member.login)
-                val repository = SpannableStringBuilder(item.repo.name)
-                return SpannableStringBuilder().apply {
-                    append(actorName)
-                    append(" ")
-                    append(action)
-                    append(" ")
-                    append(member)
-                    append(" as a collaborator to ")
-                    append(repository)
-                }
-            }
-            else -> return "not defined event"
-        }
-    }
-
-    private fun makeEventString(firstText: String, middleText: String, lastText: String)
-            : SpannableStringBuilder {
-        val firstString = SpannableStringBuilder(firstText)
-        firstString.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                0, firstText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        val middleString = SpannableStringBuilder(middleText)
-
-        val lastString = SpannableStringBuilder(lastText)
-        lastString.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                0, lastText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        firstString.append(" ")
-                .append(middleString)
-                .append(" ")
-                .append(lastString)
-
-        return firstString
+        if (!watchTypes.containsKey(item.watchType)) {
+            return item.watchType
+        } else return watchTypes[item.watchType]!!.invoke(item)
     }
 }

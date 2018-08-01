@@ -1,9 +1,8 @@
-package com.ahndwon.gethub.ui.fragment
+package com.ahndwon.gethub.ui.fragment.issue
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,10 @@ class IssueFragment : Fragment() {
 
         setupViewPager(view.issueContainer)
         view.issueTabs.setupWithViewPager(view.issueContainer)
+
+        for (i in 0..view.issueTabs.tabCount) {
+            view.issueTabs.getTabAt(i)
+        }
 
         return view
     }
@@ -44,10 +47,5 @@ class IssueFragment : Fragment() {
             arguments = args
         }, "Mentioned")
         viewPager.adapter = adapter
-    }
-
-    override fun onDestroy() {
-        Log.d(TAG, "ondestroy()")
-        super.onDestroy()
     }
 }

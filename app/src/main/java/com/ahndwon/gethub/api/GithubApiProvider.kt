@@ -5,8 +5,8 @@ import com.ahndwon.gethub.utils.authHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-fun provideEventsApi(context: Context) = Retrofit.Builder().apply {
+fun provideGithubApi(context: Context) = Retrofit.Builder().apply {
     baseUrl("https://api.github.com/")
     client(authHttpClient(context))
     addConverterFactory(GsonConverterFactory.create())
-}.build().create(EventsApi::class.java)
+}.build().create(GithubApi::class.java)

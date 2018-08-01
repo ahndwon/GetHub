@@ -1,11 +1,10 @@
-package com.ahndwon.gethub.ui.fragment
+package com.ahndwon.gethub.ui.fragment.issue
 
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +14,9 @@ import kotlinx.android.synthetic.main.fragment_created.view.*
 
 class CreatedFragment : Fragment() {
     companion object {
-        val TAG = CreatedFragment::class.java.simpleName
+        val TAG = CreatedFragment::class.java.simpleName!!
     }
+
     lateinit var isPullRequest: String
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -46,7 +46,7 @@ class CreatedFragment : Fragment() {
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
-        val adapter = SectionsPageAdapter(fragmentManager!!)
+        val adapter = SectionsPageAdapter(childFragmentManager!!)
         val openFragment = OpenClosedFragment().apply {
             val args = Bundle()
             args.putString("filter", "created")
@@ -66,10 +66,5 @@ class CreatedFragment : Fragment() {
         adapter.addFragment(openFragment, "Open")
         adapter.addFragment(closedFragment, "Closed")
         viewPager.adapter = adapter
-    }
-
-    override fun onDestroy() {
-        Log.d(TAG, "ondestroy()")
-        super.onDestroy()
     }
 }
