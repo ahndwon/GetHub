@@ -1,8 +1,6 @@
 package com.ahndwon.gethub.ui
 
 import android.graphics.PorterDuff
-import android.graphics.drawable.Icon
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
@@ -13,22 +11,20 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import com.ahndwon.gethub.R
-import com.ahndwon.gethub.api.provideUserApi
+import com.ahndwon.gethub.api.provideGithubApi
 import com.ahndwon.gethub.ui.adapter.IconPageAdapter
 import com.ahndwon.gethub.ui.fragment.HomeFragment
-import com.ahndwon.gethub.ui.fragment.IssueFragment
+import com.ahndwon.gethub.ui.fragment.issue.IssueFragment
 import com.ahndwon.gethub.ui.fragment.ProfileFragment
 import com.ahndwon.gethub.ui.fragment.PullRequestFragment
-import com.ahndwon.gethub.ui.adapter.SectionsPageAdapter
 import com.ahndwon.gethub.utils.GlideApp
 import com.ahndwon.gethub.utils.enqueue
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_sign_in.view.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.nav_header_home.*
+import java.util.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
@@ -40,6 +36,12 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
         supportActionBar!!.title = null
+
+        val timezone = TimeZone.getAvailableIDs()
+        for (string in timezone) {
+            Log.i(TAG + " timezone", string)
+        }
+
 
         val adapter = IconPageAdapter(supportFragmentManager)
         setupViewPager(container, adapter)
@@ -74,7 +76,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
 
-        val userApi = provideUserApi(this)
+        val userApi = provideGithubApi(this)
         val userCall = userApi.getUser()
         userCall.enqueue({ response ->
             val statusCode = response.code()
@@ -116,15 +118,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.home, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.action_settings -> return true
             else -> return super.onOptionsItemSelected(item)
@@ -132,10 +130,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle the camera action
+
             }
             R.id.nav_organizations -> {
 

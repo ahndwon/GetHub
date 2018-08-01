@@ -1,4 +1,4 @@
-package com.ahndwon.gethub.ui.fragment
+package com.ahndwon.gethub.ui.fragment.issue
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -21,6 +21,10 @@ class IssueFragment : Fragment() {
 
         setupViewPager(view.issueContainer)
         view.issueTabs.setupWithViewPager(view.issueContainer)
+
+        for (i in 0..view.issueTabs.tabCount) {
+            view.issueTabs.getTabAt(i)
+        }
 
         return view
     }

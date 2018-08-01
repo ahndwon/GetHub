@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.ui.adapter.SectionsPageAdapter
+import com.ahndwon.gethub.ui.fragment.issue.AssignedFragment
+import com.ahndwon.gethub.ui.fragment.issue.CreatedFragment
+import com.ahndwon.gethub.ui.fragment.issue.MentionedFragment
 import kotlinx.android.synthetic.main.fragment_pull_request.view.*
 
 class PullRequestFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.ahndwon.gethub.ui.fragment
+package com.ahndwon.gethub.ui.fragment.issue
 
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -10,9 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.ui.adapter.SectionsPageAdapter
-import kotlinx.android.synthetic.main.fragment_created.view.*
+import kotlinx.android.synthetic.main.fragment_mentioned.view.*
 
-class CreatedFragment : Fragment() {
+class MentionedFragment : Fragment() {
+    companion object {
+        val TAG = MentionedFragment::class.java.simpleName
+    }
+
     lateinit var isPullRequest: String
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -21,10 +25,11 @@ class CreatedFragment : Fragment() {
             isPullRequest = arguments!!["isPullRequest"].toString()
         }
 
-        val view = inflater.inflate(R.layout.fragment_created, container, false)
-        setupViewPager(view.createdContainer)
-        view.createdTabs.setupWithViewPager(view.createdContainer)
-        view.createdTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        val view = inflater.inflate(R.layout.fragment_mentioned, container, false)
+
+        setupViewPager(view.mentionedContainer)
+        view.mentionedTabs.setupWithViewPager(view.mentionedContainer)
+        view.mentionedTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }
@@ -42,20 +47,20 @@ class CreatedFragment : Fragment() {
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
-        val adapter = SectionsPageAdapter(fragmentManager!!)
+        val adapter = SectionsPageAdapter(childFragmentManager!!)
         val openFragment = OpenClosedFragment().apply {
             val args = Bundle()
-            args.putString("filter", "created")
+            args.putString("filter", "mentioned")
             args.putString("state", "open")
-            args.putString("isPullRequest", this@CreatedFragment.isPullRequest)
+            args.putString("isPullRequest", this@MentionedFragment.isPullRequest)
             arguments = args
         }
 
         val closedFragment = OpenClosedFragment().apply {
             val args = Bundle()
-            args.putString("filter", "created")
+            args.putString("filter", "mentioned")
             args.putString("state", "closed")
-            args.putString("isPullRequest", this@CreatedFragment.isPullRequest)
+            args.putString("isPullRequest", this@MentionedFragment.isPullRequest)
             arguments = args
         }
 

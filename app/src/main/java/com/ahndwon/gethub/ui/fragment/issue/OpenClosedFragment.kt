@@ -1,4 +1,4 @@
-package com.ahndwon.gethub.ui.fragment
+package com.ahndwon.gethub.ui.fragment.issue
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.model.Issue
-import com.ahndwon.gethub.api.provideIssueApi
+import com.ahndwon.gethub.api.provideGithubApi
 import com.ahndwon.gethub.ui.adapter.IssueListAdapter
 import com.ahndwon.gethub.utils.MyProgressBar
 import com.ahndwon.gethub.utils.enqueue
@@ -27,11 +27,11 @@ class OpenClosedFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        if (arguments != null) {
-            filter = arguments!!["filter"].toString()
-            state = arguments!!["state"].toString()
-            isPullRequest = arguments!!["isPullRequest"].toString()
-//        }
+
+        filter = arguments?.get("filter").toString()
+        state = arguments?.get("state").toString()
+        isPullRequest = arguments?.get("isPullRequest").toString()
+
 
         val view = inflater.inflate(R.layout.fragment_open_closed, container, false)
 
@@ -54,7 +54,7 @@ class OpenClosedFragment : Fragment() {
 
     private fun callEnqueue(adapter: IssueListAdapter, progressBar: MyProgressBar,
                             filter: String, state: String) {
-        val issueApi = provideIssueApi(activity!!.applicationContext)
+        val issueApi = provideGithubApi(activity!!.applicationContext)
         val issueCall = issueApi.getIssue(filter, state)
 
         issueCall.enqueue({ response ->
@@ -65,11 +65,13 @@ class OpenClosedFragment : Fragment() {
             if (statusCode == 200) {
                 val result = response.body()
                 result?.let {
-                    if(isPullRequest.equals("true")) {
+                    if (isPullRequest.equals("true")) {
                         val pullRequestList = ArrayList<Issue>()
                         for (issue in it) {
-                            if(issue.pullRequest != null) {
+                            if (issue.pullRequest != null) {
                                 pullRequestList.add(issue)
+                            } else{
+                                Log.d(TAG, "pullrequest null")
                             }
                         }
                         adapter.issues = pullRequestList

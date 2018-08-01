@@ -1,4 +1,4 @@
-package com.ahndwon.gethub.ui.fragment
+package com.ahndwon.gethub.ui.fragment.issue
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -12,9 +12,14 @@ import com.ahndwon.gethub.ui.adapter.SectionsPageAdapter
 import kotlinx.android.synthetic.main.fragment_assigned.view.*
 
 class AssignedFragment : Fragment() {
+    companion object {
+        val TAG = AssignedFragment::class.java.simpleName!!
+    }
+
     lateinit var isPullRequest : String
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (arguments != null) {
             isPullRequest = arguments!!["isPullRequest"].toString()
         }
@@ -39,7 +44,7 @@ class AssignedFragment : Fragment() {
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
-        val adapter = SectionsPageAdapter(fragmentManager!!)
+        val adapter = SectionsPageAdapter(childFragmentManager!!)
         val openFragment = OpenClosedFragment().apply {
             val args = Bundle()
             args.putString("filter", "assigned")
