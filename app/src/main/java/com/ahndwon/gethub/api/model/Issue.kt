@@ -11,6 +11,10 @@ data class Issue(val filter: String,
                  val repo: Repo,
                  @field:SerializedName("pull_request")
                  val pullRequest: PullRequest) {
+    data class Repo(
+            val id: Long,
+            val name: String,
+            val url: String)
     data class Labels(val name: String,
                       val url: String,
                       val description: String)

@@ -10,5 +10,9 @@ data class Event(val id: String,
                  val public: Boolean,
                  val payload: Payload,
                  @field:SerializedName("created_at")
-                 val createdAt: String
-)
+                 val createdAt: String) {
+    data class Repo(
+            val id: Long,
+            val name: String,
+            val url: String)
+}

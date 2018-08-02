@@ -2,6 +2,7 @@ package com.ahndwon.gethub.ui
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
 import android.support.v4.view.GravityCompat
@@ -12,6 +13,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.ahndwon.gethub.R
+import com.ahndwon.gethub.api.KEY_AUTH_TOKEN
 import com.ahndwon.gethub.api.provideGithubApi
 import com.ahndwon.gethub.ui.adapter.IconPageAdapter
 import com.ahndwon.gethub.ui.fragment.HomeFragment
@@ -89,6 +91,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                             .into(navAvatar)
                     navName.text = it.name
                     navLogin.text = it.login
+
+                    PreferenceManager.getDefaultSharedPreferences(this).edit()
+                            .putString("user_login_id", it.login)
+                            .apply()
                 }
             }
         }, {

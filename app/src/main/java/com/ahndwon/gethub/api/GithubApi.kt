@@ -1,9 +1,6 @@
 package com.ahndwon.gethub.api
 
-import com.ahndwon.gethub.api.model.Auth
-import com.ahndwon.gethub.api.model.Event
-import com.ahndwon.gethub.api.model.Issue
-import com.ahndwon.gethub.api.model.UserData
+import com.ahndwon.gethub.api.model.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -23,4 +20,7 @@ interface GithubApi {
 
     @GET("user")
     fun getUser(): Call<UserData>
+
+    @GET("user/repos")
+    fun getUserRepos(@Query("sort") sort: String): Call<List<Repo>>
 }

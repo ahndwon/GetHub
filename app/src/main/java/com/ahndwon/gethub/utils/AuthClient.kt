@@ -34,6 +34,3 @@ fun authHttpClient(context: Context) = OkHttpClient.Builder().apply {
     addInterceptor(AuthInterceptor(context))
 }.build()!!
 
-fun testHttpClient(context: Context) = OkHttpClient.Builder().apply {
-
-}.build()!!

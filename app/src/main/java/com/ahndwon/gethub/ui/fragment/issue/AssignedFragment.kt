@@ -44,7 +44,7 @@ class AssignedFragment : Fragment() {
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
-        val adapter = SectionsPageAdapter(childFragmentManager!!)
+        val adapter = SectionsPageAdapter(childFragmentManager)
         val openFragment = OpenClosedFragment().apply {
             val args = Bundle()
             args.putString("filter", "assigned")
