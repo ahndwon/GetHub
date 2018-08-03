@@ -27,19 +27,7 @@ class AssignedFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_assigned, container, false)
         setupViewPager(view.assignedContainer)
         view.assignedTabs.setupWithViewPager(view.assignedContainer)
-        view.assignedTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
 
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-
-            }
-        })
         return view
     }
 

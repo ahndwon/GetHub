@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 
-class MyProgressBar(val context: Context, val viewGroup: ViewGroup) {
+class MyProgressBar(val context: Context, viewGroup: ViewGroup) {
     val view by lazy {
         ProgressBar(context, null,
                 R.attr.progressBarStyleLarge)

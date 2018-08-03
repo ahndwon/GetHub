@@ -1,7 +1,6 @@
 package com.ahndwon.gethub.ui.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.view.ViewGroup
 import com.ahndwon.gethub.R

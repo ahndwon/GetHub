@@ -1,7 +1,11 @@
 package com.ahndwon.gethub.utils
 
 import android.content.Context
+import android.util.Log
 import com.ahndwon.gethub.api.getToken
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
+import com.google.gson.JsonSyntaxException
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -20,7 +24,12 @@ class AuthInterceptor(private val context: Context) : Interceptor {
     }
 }
 
-val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+//val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+//    level = HttpLoggingInterceptor.Level.BODY
+//}
+
+
+val loggingInterceptor = HttpLoggingInterceptor(ApiLogger()).apply {
     level = HttpLoggingInterceptor.Level.BODY
 }
 
@@ -33,4 +42,22 @@ fun authHttpClient(context: Context) = OkHttpClient.Builder().apply {
     addInterceptor(loggingInterceptor)
     addInterceptor(AuthInterceptor(context))
 }.build()!!
+
+class ApiLogger : HttpLoggingInterceptor.Logger {
+    override fun log(message: String) {
+        val logName = "ApiLogger"
+        if (message.startsWith("{") || message.startsWith("[")) {
+            try {
+                val prettyPrintJson = GsonBuilder().setPrettyPrinting()
+                        .create().toJson(JsonParser().parse(message))
+                Log.d(logName, prettyPrintJson)
+            } catch (m: JsonSyntaxException) {
+                Log.d(logName, message)
+            }
+        } else {
+            Log.d(logName, message)
+            return
+        }
+    }
+}
 

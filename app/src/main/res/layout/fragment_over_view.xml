@@ -23,7 +23,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chartName" />
@@ -48,13 +48,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recentReposRecyclerView"
+    <FrameLayout
+        android:id="@+id/recentReposContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/recentReposTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_repo"/>
+        app:layout_constraintEnd_toEndOf="parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recentReposRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_repo"/>
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>
