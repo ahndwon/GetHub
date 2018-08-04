@@ -2,9 +2,16 @@ package com.ahndwon.gethub.api.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Repo (val id: Long,
-                 val name: String,
-                 val url: String,
-                 val language: String,
-                 @field:SerializedName("stargazers_count")
-                 val stargazersCount: Int)
+data class Repo(val id: Long,
+                val name: String,
+                val url: String,
+                val language: String,
+                val private: Boolean,
+                @field:SerializedName("stargazers_count")
+                val stargazersCount: Int,
+                @field:SerializedName("forks_count")
+                val forksCount: Int,
+                @field:SerializedName("watchers_count")
+                val watchersCount: Int,
+                @field:SerializedName("updated_at")
+                val updatedAt: String)

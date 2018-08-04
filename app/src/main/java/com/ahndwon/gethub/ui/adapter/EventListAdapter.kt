@@ -7,6 +7,7 @@ import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.model.Event
 import com.ahndwon.gethub.ui.viewholder.HomeViewHolder
 import com.ahndwon.gethub.utils.GlideApp
+import com.ahndwon.gethub.utils.getSimpleDate
 import kotlinx.android.synthetic.main.item_home.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,7 +34,8 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
                     .into(itemAvatar)
 
             itemUserName.text = item.actor.login
-            itemCreatedAt.text = getSimpleDate(item.createdAt)
+            itemCreatedAt.text = getSimpleDate(item.createdAt,
+                    SimpleDateFormat("EEE, MMM d, HH:mm", Locale.getDefault()))
             itemEventContent.text = defineEvent(item)
 //            itemIcon.setImageDrawable(getIconImage(item.watchType))
         }
@@ -56,15 +58,7 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
 //        }
 //    }
 
-    private fun getSimpleDate(date: String): String {
-        val timeZone = TimeZone.getTimeZone("Africa/Casablanca")
-        val splitDate = date.replace("Z", ".000" + timeZone.displayName)
-        println(splitDate)
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault())
-        val parsedDate = dateFormat.parse(splitDate)
-        val simpleDate = SimpleDateFormat("EEE, MMM d, HH:mm", Locale.getDefault())
-        return simpleDate.format(parsedDate)
-    }
+
 
     private fun defineEvent(item: Event): CharSequence {
         if (!watchTypes.containsKey(item.watchType)) {

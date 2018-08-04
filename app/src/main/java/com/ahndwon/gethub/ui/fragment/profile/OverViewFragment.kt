@@ -59,7 +59,7 @@ class OverViewFragment : Fragment() {
         view.recentReposRecyclerView.adapter = adapter
         view.recentReposRecyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext)
 
-        val maxRecentRepos = 6
+        val maxRecentRepos = 8
 
         val repoApi = provideGithubApi(activity!!.applicationContext)
         val repoCall = repoApi.getUserRepos("updated")
@@ -76,30 +76,7 @@ class OverViewFragment : Fragment() {
         }, {
 
         })
-
-
 //        Log.d(TAG, "img type : ${requestBuilder.load(uri)}")
         return view
-    }
-
-    class HalfCropTransformation : BitmapTransformation() {
-        private val ID = "com.bumptech.glide.transformations.FillSpace"
-        private val ID_BYTES = ID.toByteArray(Charset.forName("UTF-8"))
-        override fun updateDiskCacheKey(messageDigest: MessageDigest) {
-            messageDigest.update(ID_BYTES)
-        }
-
-        override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap {
-            return Bitmap.createBitmap(toTransform, toTransform.width / 2, 0,
-                    toTransform.width, toTransform.height)
-        }
-
-        override fun equals(other: Any?): Boolean {
-            return other is HalfCropTransformation
-        }
-
-        override fun hashCode(): Int {
-            return ID.hashCode()
-        }
     }
 }
