@@ -1,31 +1,26 @@
 package com.ahndwon.gethub.ui.fragment.profile
 
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.PictureDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Half
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.provideGithubApi
+import com.ahndwon.gethub.model.LangColor
 import com.ahndwon.gethub.ui.adapter.RecentRepoListAdapter
-import com.ahndwon.gethub.utils.*
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
-import com.bumptech.glide.request.RequestOptions
-import jp.wasabeef.glide.transformations.CropTransformation
-import kotlinx.android.synthetic.main.fragment_over_view.*
+import com.ahndwon.gethub.utils.GlideApp
+import com.ahndwon.gethub.utils.MyProgressBar
+import com.ahndwon.gethub.utils.SvgSoftwareLayerSetter
+import com.ahndwon.gethub.utils.enqueue
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_over_view.view.*
-import java.nio.charset.Charset
-import java.security.MessageDigest
+import java.io.InputStreamReader
 
 
 class OverViewFragment : Fragment() {
@@ -55,7 +50,7 @@ class OverViewFragment : Fragment() {
                 .fitCenter()
                 .into(view.chart)
 
-        val adapter = RecentRepoListAdapter()
+        val adapter = RecentRepoListAdapter(getLangColorMap())
         view.recentReposRecyclerView.adapter = adapter
         view.recentReposRecyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext)
 
@@ -78,5 +73,12 @@ class OverViewFragment : Fragment() {
         })
 //        Log.d(TAG, "img type : ${requestBuilder.load(uri)}")
         return view
+    }
+
+    private fun getLangColorMap() : Map<String, LangColor> {
+        val source = resources.assets.open("LanguageColor.json")
+        val gson = Gson()
+        val reader = InputStreamReader(source)
+        return gson.fromJson(reader, object : TypeToken<Map<String, LangColor>>() {}.type)
     }
 }

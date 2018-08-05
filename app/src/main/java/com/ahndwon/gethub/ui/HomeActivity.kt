@@ -44,7 +44,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Log.i(TAG + " timezone", string)
         }
 
-
         val adapter = IconPageAdapter(supportFragmentManager)
         setupViewPager(container, adapter)
 

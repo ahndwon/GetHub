@@ -1,12 +1,15 @@
 package com.ahndwon.gethub.ui.adapter
 
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.ViewGroup
 import com.ahndwon.gethub.api.model.Repo
+import com.ahndwon.gethub.model.LangColor
 import com.ahndwon.gethub.ui.viewholder.RecentRepoViewHolder
 import kotlinx.android.synthetic.main.item_recent_repo.view.*
 
-class RecentRepoListAdapter : RecyclerView.Adapter<RecentRepoViewHolder>() {
+class RecentRepoListAdapter(val colorMap: Map<String, LangColor>) : RecyclerView.Adapter<RecentRepoViewHolder>() {
     var repos: List<Repo> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentRepoViewHolder {
@@ -24,10 +27,12 @@ class RecentRepoListAdapter : RecyclerView.Adapter<RecentRepoViewHolder>() {
         if (position < 12) {
             with(holderRecent.itemView) {
                 recentRepoName.text = item.name
-                repoLanguage.text = item.language
+                recentRepoLanguage.text = item.language
                 starCount.text = item.stargazersCount.toString()
-            }
+                Log.d("RecentRepoListAdapter",
+                        "${item.language} - ${colorMap[item.language]?.color}")
+                recentRepoLangColor
+                        .setBackgroundColor(Color.parseColor(colorMap[item.language]?.color)) }
         }
-
     }
 }

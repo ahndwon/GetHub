@@ -1,4 +1,4 @@
-package com.ahndwon.gethub.api.model
+package com.ahndwon.gethub.model
 
 import android.graphics.Color
 
