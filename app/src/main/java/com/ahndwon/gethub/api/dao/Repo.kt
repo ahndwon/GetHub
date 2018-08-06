@@ -1,6 +1,7 @@
-package com.ahndwon.gethub.api.model
+package com.ahndwon.gethub.api.dao
 
 import com.google.gson.annotations.SerializedName
+
 
 data class Repo(val id: Long,
                 val name: String,

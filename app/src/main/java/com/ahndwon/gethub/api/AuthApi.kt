@@ -1,6 +1,6 @@
 package com.ahndwon.gethub.api
 
-import com.ahndwon.gethub.api.model.Auth
+import com.ahndwon.gethub.api.dao.Auth
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

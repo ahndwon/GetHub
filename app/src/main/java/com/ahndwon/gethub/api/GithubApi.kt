@@ -1,6 +1,6 @@
 package com.ahndwon.gethub.api
 
-import com.ahndwon.gethub.api.model.*
+import com.ahndwon.gethub.api.dao.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -23,4 +23,7 @@ interface GithubApi {
 
     @GET("user/repos")
     fun getUserRepos(@Query("sort") sort: String): Call<List<Repo>>
+
+    @GET("repos/{id}/{repo}/contents")
+    fun getontents(): Call<List<Contents>>
 }

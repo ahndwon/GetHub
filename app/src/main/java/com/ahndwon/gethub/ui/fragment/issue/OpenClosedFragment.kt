@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.ahndwon.gethub.R
-import com.ahndwon.gethub.api.model.Issue
+import com.ahndwon.gethub.api.dao.Issue
 import com.ahndwon.gethub.api.provideGithubApi
 import com.ahndwon.gethub.ui.adapter.IssueListAdapter
 import com.ahndwon.gethub.utils.MyProgressBar

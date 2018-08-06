@@ -2,7 +2,7 @@ package com.ahndwon.gethub.ui.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.ahndwon.gethub.api.model.Issue
+import com.ahndwon.gethub.api.dao.Issue
 import com.ahndwon.gethub.ui.viewholder.IssueViewHolder
 import kotlinx.android.synthetic.main.item_issue.view.*
 

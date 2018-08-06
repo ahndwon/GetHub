@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.SpannableStringBuilder
 import android.view.ViewGroup
 import com.ahndwon.gethub.R
-import com.ahndwon.gethub.api.model.Event
+import com.ahndwon.gethub.api.dao.Event
 import com.ahndwon.gethub.ui.viewholder.HomeViewHolder
 import com.ahndwon.gethub.utils.GlideApp
 import com.ahndwon.gethub.utils.getSimpleDate

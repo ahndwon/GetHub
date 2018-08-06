@@ -30,7 +30,8 @@ class SvgDrawableTranscoder : ResourceTranscoder<SVG, Bitmap> {
         val svg = toTranscode.get()
         val picture = svg.renderToPicture()
 
-        val drawable = Bitmap.createBitmap(picture.width, picture.height + 5, Bitmap.Config.ARGB_8888)
+        val drawable = Bitmap.createBitmap(picture.width ,
+                picture.height + 5, Bitmap.Config.ARGB_8888)
         val bitmap = Bitmap.createBitmap(drawable, 0,0,
                 drawable.width / 2, drawable.height)
         val canvas = Canvas(bitmap)

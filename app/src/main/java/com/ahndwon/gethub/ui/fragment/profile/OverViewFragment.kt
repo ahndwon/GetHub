@@ -11,16 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.provideGithubApi
-import com.ahndwon.gethub.model.LangColor
 import com.ahndwon.gethub.ui.adapter.RecentRepoListAdapter
-import com.ahndwon.gethub.utils.GlideApp
-import com.ahndwon.gethub.utils.MyProgressBar
-import com.ahndwon.gethub.utils.SvgSoftwareLayerSetter
-import com.ahndwon.gethub.utils.enqueue
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.ahndwon.gethub.utils.*
 import kotlinx.android.synthetic.main.fragment_over_view.view.*
-import java.io.InputStreamReader
 
 
 class OverViewFragment : Fragment() {
@@ -50,7 +43,7 @@ class OverViewFragment : Fragment() {
                 .fitCenter()
                 .into(view.chart)
 
-        val adapter = RecentRepoListAdapter(getLangColorMap())
+        val adapter = RecentRepoListAdapter(getLangColorMap(resources.assets))
         view.recentReposRecyclerView.adapter = adapter
         view.recentReposRecyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext)
 
@@ -75,10 +68,5 @@ class OverViewFragment : Fragment() {
         return view
     }
 
-    private fun getLangColorMap() : Map<String, LangColor> {
-        val source = resources.assets.open("LanguageColor.json")
-        val gson = Gson()
-        val reader = InputStreamReader(source)
-        return gson.fromJson(reader, object : TypeToken<Map<String, LangColor>>() {}.type)
-    }
+
 }

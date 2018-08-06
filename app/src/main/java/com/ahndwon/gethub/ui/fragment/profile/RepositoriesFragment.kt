@@ -8,14 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.provideGithubApi
-import com.ahndwon.gethub.model.LangColor
 import com.ahndwon.gethub.ui.adapter.RepoListAdapter
 import com.ahndwon.gethub.utils.MyProgressBar
 import com.ahndwon.gethub.utils.enqueue
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.ahndwon.gethub.utils.getLangColorMap
 import kotlinx.android.synthetic.main.fragment_repositories.view.*
-import java.io.InputStreamReader
 
 
 class RepositoriesFragment : Fragment() {
@@ -23,7 +20,7 @@ class RepositoriesFragment : Fragment() {
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_repositories, container, false)
         val context = activity!!.applicationContext
-        val adapter = RepoListAdapter(getLangColorMap())
+        val adapter = RepoListAdapter(getLangColorMap(resources.assets))
         view.reposRecyclerView.adapter = adapter
         view.reposRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -47,12 +44,5 @@ class RepositoriesFragment : Fragment() {
 
         })
         return view
-    }
-
-    private fun getLangColorMap() : Map<String, LangColor> {
-        val source = resources.assets.open("LanguageColor.json")
-        val gson = Gson()
-        val reader = InputStreamReader(source)
-        return gson.fromJson(reader, object : TypeToken<Map<String, LangColor>>() {}.type)
     }
 }

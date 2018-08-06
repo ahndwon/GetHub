@@ -39,11 +39,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
         supportActionBar!!.title = null
 
-        val timezone = TimeZone.getAvailableIDs()
-        for (string in timezone) {
-            Log.i(TAG + " timezone", string)
-        }
-
         val adapter = IconPageAdapter(supportFragmentManager)
         setupViewPager(container, adapter)
 
