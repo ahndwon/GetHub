@@ -24,9 +24,6 @@ class ProfileFragment : Fragment() {
         setupViewPager(view.profileContainer)
         view.profileTabs.setupWithViewPager(view.profileContainer)
 
-        // val myApplication = activity?.application as MyApplication
-        // myApplication.n = ...;
-
         return view
     }
 

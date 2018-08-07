@@ -15,9 +15,9 @@ import com.ahndwon.gethub.api.provideGithubApi
 import com.ahndwon.gethub.ui.RepoActivity
 import com.ahndwon.gethub.ui.adapter.RecentRepoListAdapter
 import com.ahndwon.gethub.utils.*
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.fragment_over_view.view.*
 import kotlinx.android.synthetic.main.item_recent_repo.view.*
-
 
 class OverViewFragment : Fragment() {
     companion object {
@@ -45,6 +45,7 @@ class OverViewFragment : Fragment() {
                 .listener(SvgSoftwareLayerSetter())
 
         requestBuilder.load(uri)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .fitCenter()
                 .into(view.chart)
         val customApplication = activity?.application as CustomApplication

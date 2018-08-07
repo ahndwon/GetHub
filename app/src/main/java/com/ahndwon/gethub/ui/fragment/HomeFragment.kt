@@ -28,16 +28,16 @@ class HomeFragment : Fragment() {
         progressBar.view.visibility = View.VISIBLE
 
         val listAdapter = EventListAdapter()
-        listAdapter.watchTypes.put("WatchEvent") { item ->
+        listAdapter.watchTypes["WatchEvent"] = { item ->
             makeEventString(item.actor.login, "starred", item.repo.name)
         }
-        listAdapter.watchTypes.put("CreateEvent") { item ->
+        listAdapter.watchTypes["CreateEvent"] = { item ->
             makeEventString(item.actor.login, "created repository", item.repo.name)
         }
-        listAdapter.watchTypes.put("ForkEvent") { item ->
+        listAdapter.watchTypes["ForkEvent"] = { item ->
             makeEventString(item.actor.login, "forked repository", item.repo.name)
         }
-        listAdapter.watchTypes.put("MemberEvent") { item ->
+        listAdapter.watchTypes["MemberEvent"] = { item ->
             val actorName = SpannableStringBuilder(item.actor.login)
             val action = SpannableStringBuilder(item.payload.action)
             action.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
