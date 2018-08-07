@@ -61,8 +61,8 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
 
 
     private fun defineEvent(item: Event): CharSequence {
-        if (!watchTypes.containsKey(item.watchType)) {
-            return item.watchType
-        } else return watchTypes[item.watchType]!!.invoke(item)
+        return if (!watchTypes.containsKey(item.watchType)) {
+            item.watchType
+        } else watchTypes[item.watchType]!!.invoke(item)
     }
 }

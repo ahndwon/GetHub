@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_pull_request.view.*
 
 class PullRequestFragment : Fragment() {
     companion object {
-        val TAG = PullRequestFragment::class.java.simpleName
+        val TAG: String = PullRequestFragment::class.java.simpleName
     }
 
     override fun onCreateView(inflater: LayoutInflater,

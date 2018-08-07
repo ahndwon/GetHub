@@ -1,5 +1,6 @@
 package com.ahndwon.gethub.ui.fragment
 
+import android.app.Application
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 class ProfileFragment : Fragment() {
     companion object {
-        val TAG = ProfileFragment::class.java.simpleName
+        val TAG: String = ProfileFragment::class.java.simpleName
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -22,6 +23,10 @@ class ProfileFragment : Fragment() {
 
         setupViewPager(view.profileContainer)
         view.profileTabs.setupWithViewPager(view.profileContainer)
+
+        // val myApplication = activity?.application as MyApplication
+        // myApplication.n = ...;
+
         return view
     }
 
@@ -35,3 +40,4 @@ class ProfileFragment : Fragment() {
         viewPager.adapter = adapter
     }
 }
+

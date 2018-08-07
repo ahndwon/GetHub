@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter
 
 class IconPageAdapter(fn: FragmentManager) : FragmentPagerAdapter(fn) {
     private val fragmentList : ArrayList<Fragment> = arrayListOf()
-    val fragmentTitleList : ArrayList<String> = arrayListOf()
+    private val fragmentTitleList : ArrayList<String> = arrayListOf()
 
     fun addFragment(fragment: Fragment, title: String) {
         fragmentList.add(fragment)

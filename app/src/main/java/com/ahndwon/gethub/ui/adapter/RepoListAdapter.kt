@@ -14,6 +14,7 @@ import java.util.*
 
 class RepoListAdapter(private val colorMap: Map<String, LangColor>) : RecyclerView.Adapter<RepoViewHolder>() {
     var repos : List<Repo> = emptyList()
+    var onClick: ((v: View)-> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
         return RepoViewHolder(parent)
@@ -24,6 +25,7 @@ class RepoListAdapter(private val colorMap: Map<String, LangColor>) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
+        holder.itemView.setOnClickListener(onClick)
         val item = repos[position]
         val color = colorMap[item.language]?.color
 

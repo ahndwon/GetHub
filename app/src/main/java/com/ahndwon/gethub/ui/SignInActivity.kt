@@ -17,7 +17,7 @@ import org.jetbrains.anko.toast
 class SignInActivity : AppCompatActivity() {
 
     companion object {
-        val TAG = SignInActivity::class.java.simpleName
+        val TAG: String = SignInActivity::class.java.simpleName
 
         const val CLIENT_ID = "27769b070f11c43b2293"
         const val CLIENT_SECRET = "7a7ca5346b9428abf208bb9aa933bb9e3305858f"
@@ -30,9 +30,7 @@ class SignInActivity : AppCompatActivity() {
         oauthButton.setOnClickListener {
             login()
         }
-
     }
-
 
     private fun login() {
         val authUri = Uri.Builder().scheme("https")

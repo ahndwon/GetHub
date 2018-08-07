@@ -10,30 +10,37 @@ import com.ahndwon.gethub.model.LangColor
 import com.ahndwon.gethub.ui.viewholder.RecentRepoViewHolder
 import kotlinx.android.synthetic.main.item_recent_repo.view.*
 
-class RecentRepoListAdapter(private val colorMap: Map<String, LangColor>) : RecyclerView.Adapter<RecentRepoViewHolder>() {
-    var repos: List<Repo> = emptyList()
+class RecentRepoListAdapter(private val colorMap: Map<String, LangColor>)
+    : RecyclerView.Adapter<RecentRepoViewHolder>() {
+
+    internal var repos: List<Repo> = emptyList()
+    private val maxRepo = 12
+    var onClick: ((v: View)-> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentRepoViewHolder {
         return RecentRepoViewHolder(parent)
     }
 
     override fun getItemCount(): Int {
-        return if (repos.count() < 12) {
+        return if (repos.count() < maxRepo) {
             repos.count()
-        } else return 12
+        } else return maxRepo
     }
 
     override fun onBindViewHolder(holderRecent: RecentRepoViewHolder, position: Int) {
+        holderRecent.itemView.setOnClickListener(onClick)
         val item = repos[position]
         val color = colorMap[item.language]?.color
 
-        if (position < 12) {
+        if (position < maxRepo) {
             with(holderRecent.itemView) {
                 recentRepoName.text = item.name
                 recentRepoLanguage.text = item.language
                 starCount.text = item.stargazersCount.toString()
+
                 Log.d("RecentRepoListAdapter",
                         "${item.language} - ${colorMap[item.language]?.color}")
+
                 if (color == null) {
                     recentRepoLangColor.visibility = View.INVISIBLE
                 } else {
@@ -42,4 +49,6 @@ class RecentRepoListAdapter(private val colorMap: Map<String, LangColor>) : Recy
             }
         }
     }
+
+
 }

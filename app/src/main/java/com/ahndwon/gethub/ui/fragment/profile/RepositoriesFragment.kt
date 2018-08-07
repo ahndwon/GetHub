@@ -1,5 +1,6 @@
 package com.ahndwon.gethub.ui.fragment.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -8,10 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.provideGithubApi
+import com.ahndwon.gethub.ui.RepoActivity
 import com.ahndwon.gethub.ui.adapter.RepoListAdapter
+import com.ahndwon.gethub.utils.CustomApplication
 import com.ahndwon.gethub.utils.MyProgressBar
 import com.ahndwon.gethub.utils.enqueue
-import com.ahndwon.gethub.utils.getLangColorMap
 import kotlinx.android.synthetic.main.fragment_repositories.view.*
 
 
@@ -20,7 +22,14 @@ class RepositoriesFragment : Fragment() {
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_repositories, container, false)
         val context = activity!!.applicationContext
-        val adapter = RepoListAdapter(getLangColorMap(resources.assets))
+
+        val customApplication = activity?.application as CustomApplication
+        val colorMap = customApplication.colorMap
+        val adapter = RepoListAdapter(colorMap)
+        adapter.onClick = {
+            val intent = Intent(activity!!.applicationContext, RepoActivity::class.java)
+            startActivity(intent)
+        }
         view.reposRecyclerView.adapter = adapter
         view.reposRecyclerView.layoutManager = LinearLayoutManager(context)
 

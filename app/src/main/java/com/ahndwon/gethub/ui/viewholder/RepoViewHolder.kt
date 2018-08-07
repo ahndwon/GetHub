@@ -9,4 +9,3 @@ import com.ahndwon.gethub.R
 class RepoViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_repo, parent, false)
 )
-
