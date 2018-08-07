@@ -13,11 +13,7 @@ class CustomApplication: Application() {
         getLangColorMap(resources.assets)
     }
 
-    override fun onCreate() {
-        super.onCreate()
-    }
-
-    fun getLangColorMap(assetManager: AssetManager) : Map<String, LangColor> {
+    private fun getLangColorMap(assetManager: AssetManager) : Map<String, LangColor> {
         try {
             val source = assetManager.open("LanguageColor.json")
             val gson = Gson()

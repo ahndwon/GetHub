@@ -15,9 +15,14 @@ import com.ahndwon.gethub.utils.CustomApplication
 import com.ahndwon.gethub.utils.MyProgressBar
 import com.ahndwon.gethub.utils.enqueue
 import kotlinx.android.synthetic.main.fragment_repositories.view.*
+import kotlinx.android.synthetic.main.item_repo.view.*
 
 
 class RepositoriesFragment : Fragment() {
+    companion object {
+        val TAG: String = RepositoriesFragment::class.java.simpleName
+    }
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_repositories, container, false)
@@ -26,8 +31,10 @@ class RepositoriesFragment : Fragment() {
         val customApplication = activity?.application as CustomApplication
         val colorMap = customApplication.colorMap
         val adapter = RepoListAdapter(colorMap)
-        adapter.onClick = {
+        adapter.onClick = { v ->
+            val item = view.reposRecyclerView.getChildViewHolder(v)
             val intent = Intent(activity!!.applicationContext, RepoActivity::class.java)
+            intent.putExtra("repoName", item.itemView.repoName.text)
             startActivity(intent)
         }
         view.reposRecyclerView.adapter = adapter

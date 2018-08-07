@@ -15,15 +15,14 @@ import com.ahndwon.gethub.api.provideGithubApi
 import com.ahndwon.gethub.ui.RepoActivity
 import com.ahndwon.gethub.ui.adapter.RecentRepoListAdapter
 import com.ahndwon.gethub.utils.*
-import kotlinx.android.synthetic.main.fragment_over_view.*
 import kotlinx.android.synthetic.main.fragment_over_view.view.*
 import kotlinx.android.synthetic.main.item_recent_repo.view.*
-import kotlinx.android.synthetic.main.item_repo.view.*
 
 
 class OverViewFragment : Fragment() {
     companion object {
         val TAG: String = OverViewFragment::class.java.simpleName
+        const val MAX_RECENT_REPOS = 8
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -54,17 +53,15 @@ class OverViewFragment : Fragment() {
 
 
         view.recentReposRecyclerView.adapter = adapter
-        view.recentReposRecyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+        view.recentReposRecyclerView.layoutManager =
+                LinearLayoutManager(activity!!.applicationContext)
 
         adapter.onClick = { v ->
-//            val pos = view.recentReposRecyclerView.indexOfChild(view)
-//            val item = adapter.repos[pos]
             val item = view.recentReposRecyclerView.getChildViewHolder(v)
             val intent = Intent(activity!!.applicationContext, RepoActivity::class.java)
             intent.putExtra("repoName", item.itemView.recentRepoName.text)
             startActivity(intent)
         }
-        val maxRecentRepos = 8
 
         val repoApi = provideGithubApi(activity!!.applicationContext)
         val repoCall = repoApi.getUserRepos("updated")
@@ -74,7 +71,7 @@ class OverViewFragment : Fragment() {
             if (statusCode == 200) {
                 val result = response.body()
                 result?.let {
-                    adapter.repos = it.subList(0, maxRecentRepos)
+                    adapter.repos = it.subList(0, MAX_RECENT_REPOS)
                     adapter.notifyDataSetChanged()
                 }
             }

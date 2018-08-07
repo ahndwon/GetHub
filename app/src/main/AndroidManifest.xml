@@ -35,7 +35,9 @@
             android:name=".ui.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ui.RepoActivity"></activity>
+        <activity
+            android:name=".ui.RepoActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
