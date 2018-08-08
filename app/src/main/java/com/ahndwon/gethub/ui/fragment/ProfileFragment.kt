@@ -1,6 +1,5 @@
 package com.ahndwon.gethub.ui.fragment
 
-import android.app.Application
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
@@ -20,15 +19,15 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        val adapter = SectionsPageAdapter(childFragmentManager)
 
-        setupViewPager(view.profileContainer)
+        setupViewPager(view.profileContainer, adapter)
         view.profileTabs.setupWithViewPager(view.profileContainer)
 
         return view
     }
 
-    private fun setupViewPager(viewPager: ViewPager) {
-        val adapter = SectionsPageAdapter(childFragmentManager)
+    private fun setupViewPager(viewPager: ViewPager, adapter: SectionsPageAdapter) {
         adapter.addFragment(OverViewFragment(), "Overview")
         adapter.addFragment(RepositoriesFragment(), "Repos")
         adapter.addFragment(StarsFragment(), "Stars")

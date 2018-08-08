@@ -35,7 +35,7 @@ class RepoActivity : AppCompatActivity() {
         }
 
         val adapter = IconPageAdapter(supportFragmentManager)
-        setupViewPager(container, adapter)
+        setupViewPager(container, adapter, repoName)
 
         tabs.setupWithViewPager(container)
         setTabIcons()
@@ -50,7 +50,7 @@ class RepoActivity : AppCompatActivity() {
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
                 tab.icon?.setColorFilter(resources.getColor(R.color.black), PorterDuff.Mode.SRC_IN)
-                tab.text = ""
+//                tab.text = ""
             }
 
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -79,11 +79,13 @@ class RepoActivity : AppCompatActivity() {
         tabs.getTabAt(3)?.setIcon(R.drawable.ic_project)
     }
 
-    private fun setupViewPager(viewPager: ViewPager, adapter: IconPageAdapter) {
-        adapter.addFragment(CodeFragment(), "Code")
-        adapter.addFragment(IssuesFragment(), "Issues")
-        adapter.addFragment(PullRequestsFragment(), "Pull Requests")
-        adapter.addFragment(ProjectsFragment(), "Projects")
+    private fun setupViewPager(viewPager: ViewPager, adapter: IconPageAdapter, repoName: String) {
+        val args = Bundle()
+        args.putString("repoName" , repoName)
+        adapter.addFragment(CodeFragment().apply { arguments = args}, "Code")
+        adapter.addFragment(IssuesFragment().apply { arguments = args}, "Issues")
+        adapter.addFragment(PullRequestsFragment().apply { arguments = args}, "Pull Requests")
+        adapter.addFragment(ProjectsFragment().apply { arguments = args}, "Projects")
         viewPager.adapter = adapter
     }
 }

@@ -5,30 +5,29 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.ahndwon.gethub.R
-import com.ahndwon.gethub.api.KEY_AUTH_TOKEN
 import com.ahndwon.gethub.api.provideGithubApi
 import com.ahndwon.gethub.ui.adapter.IconPageAdapter
 import com.ahndwon.gethub.ui.fragment.HomeFragment
-import com.ahndwon.gethub.ui.fragment.issue.IssueFragment
 import com.ahndwon.gethub.ui.fragment.ProfileFragment
 import com.ahndwon.gethub.ui.fragment.PullRequestFragment
+import com.ahndwon.gethub.ui.fragment.issue.IssueFragment
 import com.ahndwon.gethub.utils.GlideApp
 import com.ahndwon.gethub.utils.enqueue
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.nav_header_home.*
-import java.util.*
 
-class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeActivity :
+        AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
         val TAG: String = HomeActivity::class.java.simpleName
     }
@@ -96,7 +95,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
     }
 
-    private fun setTabSelected(tab: TabLayout.Tab, adapter: IconPageAdapter) {
+    private fun setTabSelected(tab: TabLayout.Tab, adapter: FragmentPagerAdapter) {
         tab.icon?.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
 //        tab.text = adapter.fragmentTitleList[tab.position]
     }
@@ -123,9 +122,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.action_settings -> true
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

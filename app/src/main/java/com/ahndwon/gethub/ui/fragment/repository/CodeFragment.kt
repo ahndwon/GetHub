@@ -18,15 +18,21 @@ class CodeFragment : Fragment() {
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_code, container, false)
 
-        setupViewPager(view.codeContainer)
+        val repoName = arguments?.get("repoName").toString()
+        repoName?.let {
+            setupViewPager(view.codeContainer, repoName)
+        }
+
         view.codeTabs.setupWithViewPager(view.codeContainer)
         view.codeTabs.tabMode = TabLayout.MODE_SCROLLABLE
         return view
     }
 
-    private fun setupViewPager(viewPager: ViewPager) {
+    private fun setupViewPager(viewPager: ViewPager, repoName: String) {
+        val args = Bundle()
+        args.putString("repoName", repoName)
         val adapter = SectionsPageAdapter(childFragmentManager)
-        adapter.addFragment(CodeInfoFragment(), "Info")
+        adapter.addFragment(CodeInfoFragment().apply { arguments = args }, "Info")
         adapter.addFragment(CodeFilesFragment(), "Files")
         adapter.addFragment(CodeCommitsFragment(), "Commits")
         adapter.addFragment(CodeReleasesFragment(), "Releases")

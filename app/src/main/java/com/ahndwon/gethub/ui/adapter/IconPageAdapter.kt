@@ -24,6 +24,4 @@ class IconPageAdapter(fn: FragmentManager) : FragmentPagerAdapter(fn) {
     override fun getCount(): Int {
         return fragmentList.size
     }
-
-
 }

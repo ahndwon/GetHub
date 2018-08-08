@@ -24,6 +24,15 @@ interface GithubApi {
     @GET("user/repos")
     fun getUserRepos(@Query("sort") sort: String): Call<List<Repo>>
 
+    @GET("repos/{id}/{repoName}")
+    fun getRepo(@Path("id") id: String,
+                @Path("repoName") repoName: String): Call<Repo>
+
     @GET("repos/{id}/{repo}/contents")
-    fun getontents(): Call<List<Contents>>
+    fun getContents(@Path("id") id: String,
+                    @Path("repo") repo: String): Call<List<Contents>>
+
+    @GET("repos/{id}/{repoName}/readme")
+    fun getReadMe(@Path("id") id: String,
+                  @Path("repoName") repoName: String): Call<ReadMe>
 }

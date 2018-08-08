@@ -25,22 +25,23 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/repoName"
+                android:id="@+id/repoInfoRepoName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="user/repoName"
                 android:layout_marginStart="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse" />
+                android:hint="user/repoName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+                android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/createdDate"
+                android:id="@+id/repoInfoCreatedDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Created at Dec 11, 2017" />
 
             <TextView
-                android:id="@+id/updatedDate"
+                android:id="@+id/repoInfoUpdatedDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -146,8 +147,8 @@
 
             <View
                 android:id="@+id/repoInfoLangColor"
-                android:layout_width="24dp"
-                android:layout_height="21dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_marginEnd="8dp"
                 android:background="@color/cardview_dark_background"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -159,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="8dp"
                 android:text="Language"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -172,7 +173,7 @@
 
 
     </android.support.constraint.ConstraintLayout>
-    <android.support.constraint.ConstraintLayout
+    <com.mittsu.markedview.MarkedView
         android:id="@+id/repoReadMe"
         android:layout_width="0dp"
         android:layout_height="0dp"

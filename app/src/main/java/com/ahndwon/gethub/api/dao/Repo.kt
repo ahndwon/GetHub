@@ -15,4 +15,6 @@ data class Repo(val id: Long,
                 @field:SerializedName("watchers_count")
                 val watchersCount: Int,
                 @field:SerializedName("updated_at")
-                val updatedAt: String)
+                val updatedAt: String,
+                @field:SerializedName("created_at")
+                val createdAt: String)
