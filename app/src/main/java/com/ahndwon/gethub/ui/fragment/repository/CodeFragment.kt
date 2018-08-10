@@ -19,21 +19,21 @@ class CodeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_code, container, false)
 
         val repoName = arguments?.get("repoName").toString()
-        repoName?.let {
-            setupViewPager(view.codeContainer, repoName)
-        }
+        val repoOwner = arguments?.get("repoOwner").toString()
+        setupViewPager(view.codeContainer, repoName, repoOwner)
 
         view.codeTabs.setupWithViewPager(view.codeContainer)
         view.codeTabs.tabMode = TabLayout.MODE_SCROLLABLE
         return view
     }
 
-    private fun setupViewPager(viewPager: ViewPager, repoName: String) {
+    private fun setupViewPager(viewPager: ViewPager, repoName: String, repoOwner: String) {
         val args = Bundle()
         args.putString("repoName", repoName)
+        args.putString("repoOwner", repoOwner)
         val adapter = SectionsPageAdapter(childFragmentManager)
         adapter.addFragment(CodeInfoFragment().apply { arguments = args }, "Info")
-        adapter.addFragment(CodeFilesFragment(), "Files")
+        adapter.addFragment(CodeFilesFragment().apply { arguments = args }, "Files")
         adapter.addFragment(CodeCommitsFragment(), "Commits")
         adapter.addFragment(CodeReleasesFragment(), "Releases")
         adapter.addFragment(CodeContributorsFragment(), "Contributors")

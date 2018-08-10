@@ -1,5 +1,6 @@
 package com.ahndwon.gethub.ui
 
+import android.content.Context
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -25,6 +26,13 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.nav_header_home.*
+import android.view.WindowManager
+import android.content.Context.WINDOW_SERVICE
+import android.os.Build
+import android.view.View
+import kotlinx.android.synthetic.main.fragment_home.*
+import org.jetbrains.anko.toast
+
 
 class HomeActivity :
         AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {

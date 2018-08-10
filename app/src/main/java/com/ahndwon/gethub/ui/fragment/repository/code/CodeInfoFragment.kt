@@ -31,18 +31,19 @@ class CodeInfoFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_code_info, container, false)
 
         val repoName = arguments?.get("repoName").toString()
+        val repoOwner = arguments?.get("repoOwner").toString()
         val userId = PreferenceManager.getDefaultSharedPreferences(activity!!.applicationContext)
                 .getString("user_login_id", null)
 
         val githubApi = provideGithubApi(activity!!.applicationContext)
-        val repoCall = githubApi.getRepo(userId, repoName)
+        val repoCall = githubApi.getRepo(repoOwner, repoName)
         repoCall.enqueue ({ response ->
             val statusCode = response.code()
             if (statusCode == 200) {
                 val result = response.body()
                 result?.let {
                     val dateFormat = SimpleDateFormat("MMM d YYYY HH:mm", Locale.getDefault())
-                    repoInfoRepoName.text = "$userId/${result.name}"
+                    repoInfoRepoName.text = "${result.owner.login}/${result.name}"
                     repoInfoCreatedDate.text =
                             "Created at ${getSimpleDate(result.createdAt, dateFormat)}"
                     repoInfoUpdatedDate.text =
@@ -50,7 +51,7 @@ class CodeInfoFragment : Fragment() {
 
                     repoInfoWatchTextView.text = result.watchersCount.toString()
                     repoInfoStarTextView.text = result.stargazersCount.toString()
-                    ;      repoInfoStarTextView.text = result.forksCount.toString()
+                    repoInfoStarTextView.text = result.forksCount.toString()
 
                     val color = (activity?.application as CustomApplication)
                             .colorMap[result.language]?.color
@@ -68,14 +69,9 @@ class CodeInfoFragment : Fragment() {
             if (statusCode == 200) {
                 val result = response.body()
                 result?.let {
-                    Log.d(TAG, result.downloadUrl)
-//                    DownloadFileFromURL
-                    val file = File(result.downloadUrl)
-                    repoReadMe.loadMDFile(file)
-//                    repoReadMe.loadMDFilePath(result.downloadUrl)
+                    repoReadMe.loadMarkdownFile(result.downloadUrl)
                 }
             }
-
         }, {
 
         })

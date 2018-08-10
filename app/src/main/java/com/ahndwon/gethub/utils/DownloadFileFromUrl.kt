@@ -13,12 +13,6 @@ import java.net.URL
 
 
 class DownloadFileFromURL : AsyncTask<String, String, String>() {
-    /**
-     * Before starting background thread Show Progress Bar Dialog
-     */
-    override fun onPreExecute() {
-        super.onPreExecute()
-    }
 
     /**
      * Downloading file in background thread
@@ -41,9 +35,6 @@ class DownloadFileFromURL : AsyncTask<String, String, String>() {
             // Output stream
             val output = FileOutputStream(Environment
                     .getDownloadCacheDirectory().toString() + "/readme.md")
-
-
-
 
             val data = ByteArray(1024)
 
@@ -87,9 +78,8 @@ class DownloadFileFromURL : AsyncTask<String, String, String>() {
     /**
      * After completing background task Dismiss the progress dialog
      */
-    override fun onPostExecute(file_url: String) {
+    override fun onPostExecute(file_url: String?) {
         // dismiss the dialog after the file was downloaded
-
     }
 
 }

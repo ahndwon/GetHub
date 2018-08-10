@@ -17,4 +17,12 @@ data class Repo(val id: Long,
                 @field:SerializedName("updated_at")
                 val updatedAt: String,
                 @field:SerializedName("created_at")
-                val createdAt: String)
+                val createdAt: String,
+                val owner: Owner) {
+    data class Owner(val login: String,
+                     val id: Int,
+                     @field:SerializedName("avatar_url")
+                     val avatarUrl: String,
+                     val url: String,
+                     val type: String)
+}

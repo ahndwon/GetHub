@@ -28,9 +28,10 @@ interface GithubApi {
     fun getRepo(@Path("id") id: String,
                 @Path("repoName") repoName: String): Call<Repo>
 
-    @GET("repos/{id}/{repo}/contents")
+    @GET("repos/{id}/{repo}/contents/{path}")
     fun getContents(@Path("id") id: String,
-                    @Path("repo") repo: String): Call<List<Contents>>
+                    @Path("repo") repo: String,
+                    @Path("path") path: String): Call<List<Content>>
 
     @GET("repos/{id}/{repoName}/readme")
     fun getReadMe(@Path("id") id: String,

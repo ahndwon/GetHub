@@ -58,9 +58,12 @@ class OverViewFragment : Fragment() {
                 LinearLayoutManager(activity!!.applicationContext)
 
         adapter.onClick = { v ->
-            val item = view.recentReposRecyclerView.getChildViewHolder(v)
+            val position = view.recentReposRecyclerView.getChildAdapterPosition(v)
+            val repo = adapter.repos[position]
+//            val item = view.recentReposRecyclerView.getChildViewHolder(v)
             val intent = Intent(activity!!.applicationContext, RepoActivity::class.java)
-            intent.putExtra("repoName", item.itemView.recentRepoName.text)
+            intent.putExtra("repoOwner", repo.owner.login)
+            intent.putExtra("repoName", repo.name)
             startActivity(intent)
         }
 

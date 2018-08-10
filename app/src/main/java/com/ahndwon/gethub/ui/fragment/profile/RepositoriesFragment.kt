@@ -32,9 +32,12 @@ class RepositoriesFragment : Fragment() {
         val colorMap = customApplication.colorMap
         val adapter = RepoListAdapter(colorMap)
         adapter.onClick = { v ->
-            val item = view.reposRecyclerView.getChildViewHolder(v)
+            val position = view.reposRecyclerView.getChildAdapterPosition(v)
+            val repo = adapter.repos[position]
+//            val item = view.reposRecyclerView.getChildViewHolder(v)
             val intent = Intent(activity!!.applicationContext, RepoActivity::class.java)
-            intent.putExtra("repoName", item.itemView.repoName.text)
+            intent.putExtra("repoName", repo.name)
+            intent.putExtra("repoOwner", repo.owner.login)
             startActivity(intent)
         }
         view.reposRecyclerView.adapter = adapter
