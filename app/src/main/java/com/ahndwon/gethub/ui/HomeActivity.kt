@@ -1,6 +1,5 @@
 package com.ahndwon.gethub.ui
 
-import android.content.Context
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -20,18 +19,12 @@ import com.ahndwon.gethub.ui.fragment.HomeFragment
 import com.ahndwon.gethub.ui.fragment.ProfileFragment
 import com.ahndwon.gethub.ui.fragment.PullRequestFragment
 import com.ahndwon.gethub.ui.fragment.issue.IssueFragment
-import com.ahndwon.gethub.utils.GlideApp
 import com.ahndwon.gethub.utils.enqueue
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.nav_header_home.*
-import android.view.WindowManager
-import android.content.Context.WINDOW_SERVICE
-import android.os.Build
-import android.view.View
-import kotlinx.android.synthetic.main.fragment_home.*
-import org.jetbrains.anko.toast
 
 
 class HomeActivity :
@@ -86,9 +79,9 @@ class HomeActivity :
             if (statusCode == 200) {
                 val result = response.body()
                 result?.let {
-                    GlideApp.with(this)
+                    Glide.with(this)
                             .load(it.avatarUrl)
-                            .placeholder(R.drawable.ic_github)
+//                            .placeholder(R.drawable.ic_github)
                             .into(navAvatar)
                     navName.text = it.name
                     navLogin.text = it.login
