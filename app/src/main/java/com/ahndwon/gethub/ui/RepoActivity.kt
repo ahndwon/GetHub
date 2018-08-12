@@ -104,8 +104,14 @@ class RepoActivity : AppCompatActivity() {
             val currentChildFragment = getVisibleChildFragment(currentFragment.childFragmentManager)
 
             Log.d(TAG, currentChildFragment.toString())
-            if (currentChildFragment is CodeFilesFragment && onBackPressed != null )
+            if (currentChildFragment is CodeFilesFragment && onBackPressed != null) {
+
+                if (currentChildFragment.clickCount == 0) {
+                    super.onBackPressed()
+                    return
+                }
                 onBackPressed?.invoke()
+            }
             else super.onBackPressed()
         }
     }
@@ -114,8 +120,7 @@ class RepoActivity : AppCompatActivity() {
         val fragments = supportFragmentManager.fragments
         if (fragments != null) {
             for (fragment in fragments) {
-//                fragment.
-                if (fragment != null && fragment.isVisible)
+                if (fragment != null && fragment.userVisibleHint)
                     return fragment
             }
         }
@@ -126,7 +131,7 @@ class RepoActivity : AppCompatActivity() {
         val fragments = childManager.fragments
         if (fragments != null) {
             for (fragment in fragments) {
-                if (fragment != null && fragment.isVisible)
+                if (fragment != null && fragment.userVisibleHint)
                     return fragment
             }
         }

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.ahndwon.gethub.R
 import com.ahndwon.gethub.api.dao.Event
 import com.ahndwon.gethub.ui.viewholder.HomeViewHolder
+import com.ahndwon.gethub.utils.GlideApp
 import com.ahndwon.gethub.utils.getSimpleDate
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_home.view.*
@@ -28,9 +29,9 @@ class EventListAdapter : RecyclerView.Adapter<HomeViewHolder>() {
         val item = events[position]
 
         with(holder.itemView) {
-            Glide.with(this)
+            GlideApp.with(this)
                     .load(item.actor.avatarUrl)
-//                    .placeholder(R.drawable.ic_github)
+                    .placeholder(R.drawable.ic_github)
                     .into(itemAvatar)
 
             itemUserName.text = item.actor.login

@@ -19,6 +19,7 @@ import com.ahndwon.gethub.ui.fragment.HomeFragment
 import com.ahndwon.gethub.ui.fragment.ProfileFragment
 import com.ahndwon.gethub.ui.fragment.PullRequestFragment
 import com.ahndwon.gethub.ui.fragment.issue.IssueFragment
+import com.ahndwon.gethub.utils.GlideApp
 import com.ahndwon.gethub.utils.enqueue
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_home.*
@@ -79,9 +80,9 @@ class HomeActivity :
             if (statusCode == 200) {
                 val result = response.body()
                 result?.let {
-                    Glide.with(this)
+                    GlideApp.with(this)
                             .load(it.avatarUrl)
-//                            .placeholder(R.drawable.ic_github)
+                            .placeholder(R.drawable.ic_github)
                             .into(navAvatar)
                     navName.text = it.name
                     navLogin.text = it.login
@@ -150,7 +151,6 @@ class HomeActivity :
 
             }
         }
-
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
