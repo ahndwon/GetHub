@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -30,8 +31,8 @@ class RepoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repo)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
 
         val bundle = intent.extras
         val repoName = bundle.getString("repoName")
@@ -55,7 +56,9 @@ class RepoActivity : AppCompatActivity() {
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
-                tab.icon?.setColorFilter(resources.getColor(R.color.black), PorterDuff.Mode.SRC_IN)
+                tab.icon?.setColorFilter(
+                        ContextCompat.getColor(this@RepoActivity, R.color.black),
+                        PorterDuff.Mode.SRC_IN)
 //                tab.text = ""
             }
 
@@ -74,7 +77,8 @@ class RepoActivity : AppCompatActivity() {
     }
 
     private fun setTabSelected(tab: TabLayout.Tab, adapter: IconPageAdapter) {
-        tab.icon?.setColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+        tab.icon?.setColorFilter(
+                ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_IN)
 //        tab.text = adapter.fragmentTitleList[tab.position]
     }
 

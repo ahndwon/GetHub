@@ -30,7 +30,7 @@ class OverViewFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_over_view, container, false)
 
 
-        val myProgressBar = MyProgressBar(activity!!.applicationContext, view.recentReposContainer)
+        val myProgressBar = MyProgressBar(requireContext(), view.recentReposContainer)
         myProgressBar.view.visibility = View.VISIBLE
 
         val userId = PreferenceManager.getDefaultSharedPreferences(context)
@@ -61,13 +61,13 @@ class OverViewFragment : Fragment() {
             val position = view.recentReposRecyclerView.getChildAdapterPosition(v)
             val repo = adapter.repos[position]
 //            val item = view.recentReposRecyclerView.getChildViewHolder(v)
-            val intent = Intent(activity!!.applicationContext, RepoActivity::class.java)
+            val intent = Intent(requireContext(), RepoActivity::class.java)
             intent.putExtra("repoOwner", repo.owner.login)
             intent.putExtra("repoName", repo.name)
             startActivity(intent)
         }
 
-        val repoApi = provideGithubApi(activity!!.applicationContext)
+        val repoApi = provideGithubApi(requireContext())
         val repoCall = repoApi.getUserRepos("updated")
         repoCall.enqueue({ response ->
             myProgressBar.view.visibility = View.GONE

@@ -54,7 +54,7 @@ class OpenClosedFragment : Fragment() {
 
     private fun callEnqueue(adapter: IssueListAdapter, progressBar: MyProgressBar,
                             filter: String, state: String) {
-        val issueApi = provideGithubApi(activity!!.applicationContext)
+        val issueApi = provideGithubApi(requireActivity().applicationContext)
         val issueCall = issueApi.getIssue(filter, state)
 
         issueCall.enqueue({ response ->
@@ -65,7 +65,7 @@ class OpenClosedFragment : Fragment() {
             if (statusCode == 200) {
                 val result = response.body()
                 result?.let {
-                    if (isPullRequest.equals("true")) {
+                    if (isPullRequest == "true") {
                         val pullRequestList = ArrayList<Issue>()
                         for (issue in it) {
                             if (issue.pullRequest != null) {

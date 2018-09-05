@@ -26,7 +26,7 @@ class RepositoriesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_repositories, container, false)
-        val context = activity!!.applicationContext
+        val context = requireContext()
 
         val customApplication = activity?.application as CustomApplication
         val colorMap = customApplication.colorMap
@@ -35,7 +35,7 @@ class RepositoriesFragment : Fragment() {
             val position = view.reposRecyclerView.getChildAdapterPosition(v)
             val repo = adapter.repos[position]
 //            val item = view.reposRecyclerView.getChildViewHolder(v)
-            val intent = Intent(activity!!.applicationContext, RepoActivity::class.java)
+            val intent = Intent(requireContext(), RepoActivity::class.java)
             intent.putExtra("repoName", repo.name)
             intent.putExtra("repoOwner", repo.owner.login)
             startActivity(intent)

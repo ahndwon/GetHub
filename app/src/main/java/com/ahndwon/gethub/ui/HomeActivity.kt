@@ -38,7 +38,7 @@ class HomeActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
-        supportActionBar!!.title = null
+        supportActionBar?.title = null
 
         val adapter = IconPageAdapter(supportFragmentManager)
         setupViewPager(container, adapter)

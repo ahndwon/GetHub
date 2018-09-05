@@ -41,11 +41,13 @@ class CodeFilesFragment : Fragment() {
 
         (activity as RepoActivity).onBackPressed = {
             if (clickCount > 0) {
-                clickCount--
-                fileAdapter.files = fileList[clickCount]
                 dirList.removeAt(clickCount)
                 dirAdapter.directoryList = dirList
                 dirAdapter.notifyDataSetChanged()
+
+                clickCount--
+
+                fileAdapter.files = fileList[clickCount]
                 fileAdapter.notifyDataSetChanged()
             }
         }
@@ -60,6 +62,7 @@ class CodeFilesFragment : Fragment() {
                     if (!dirList.contains(path)) dirList.add(path)
                     dirAdapter.directoryList = dirList
                     dirAdapter.notifyDataSetChanged()
+
                     if (!fileList.contains(it)) fileList.add(it)
                     fileAdapter.files = fileList[clickCount]
                     fileAdapter.notifyDataSetChanged()
@@ -80,9 +83,11 @@ class CodeFilesFragment : Fragment() {
                     val result = response.body()
                     result?.let {
                         clickCount++
+
                         if (!dirList.contains(path)) dirList.add(path)
                         dirAdapter.directoryList = dirList
                         dirAdapter.notifyDataSetChanged()
+
                         if (!fileList.contains(it)) fileList.add(it)
                         fileAdapter.files = fileList[clickCount]
                         fileAdapter.notifyDataSetChanged()

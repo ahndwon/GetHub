@@ -43,11 +43,13 @@ class CodeInfoFragment : Fragment() {
                 val result = response.body()
                 result?.let {
                     val dateFormat = SimpleDateFormat("MMM d YYYY HH:mm", Locale.getDefault())
-                    repoInfoRepoName.text = "${result.owner.login}/${result.name}"
-                    repoInfoCreatedDate.text =
-                            "Created at ${getSimpleDate(result.createdAt, dateFormat)}"
-                    repoInfoUpdatedDate.text =
-                            "Updated at ${getSimpleDate(result.updatedAt, dateFormat)}"
+                    val repoNameText = "${result.owner.login}/${result.name}"
+                    val createdDate = "Created at ${getSimpleDate(result.createdAt, dateFormat)}"
+                    val updatedDate = "Updated at ${getSimpleDate(result.updatedAt, dateFormat)}"
+
+                    repoInfoRepoName.text = repoNameText
+                    repoInfoCreatedDate.text = createdDate
+                    repoInfoUpdatedDate.text = updatedDate
 
                     repoInfoWatchTextView.text = result.watchersCount.toString()
                     repoInfoStarTextView.text = result.stargazersCount.toString()

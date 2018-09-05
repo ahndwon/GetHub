@@ -38,11 +38,14 @@ class FileListAdapter : RecyclerView.Adapter<FileViewHolder>() {
                         into(itemFileImageView)
             }
             itemFileTitle.text = item.name
-            setOnClickListener(onClick)
+            onClick?.let {
+                setOnClickListener(onClick)
+            }
 //            setOnClickListener {
 //                val bundle = Bundle()
 //                if(item.type == "dir") bundle.putString("path", item.path)
 //            }
+
         }
     }
 }

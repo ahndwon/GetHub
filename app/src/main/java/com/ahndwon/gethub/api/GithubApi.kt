@@ -16,7 +16,8 @@ interface GithubApi {
     fun getEvents(): Call<List<Event>>
 
     @GET("user/issues")
-    fun getIssue(@Query("filter") filter: String, @Query("state") state: String): Call<List<Issue>>
+    fun getIssue(@Query("filter") filter: String,
+                 @Query("state") state: String): Call<List<Issue>>
 
     @GET("user")
     fun getUser(): Call<UserData>

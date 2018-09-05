@@ -4,6 +4,7 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
@@ -36,18 +37,19 @@ class MentionedFragment : Fragment() {
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 tab?.customView?.background?.setColorFilter(
-                        resources.getColor(android.R.color.darker_gray), PorterDuff.Mode.SRC_IN)
+                        ContextCompat.getColor(requireContext(), android.R.color.darker_gray), PorterDuff.Mode.SRC_IN)
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
 
             }
+
         })
         return view
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
-        val adapter = SectionsPageAdapter(childFragmentManager!!)
+        val adapter = SectionsPageAdapter(childFragmentManager)
         val openFragment = OpenClosedFragment().apply {
             val args = Bundle()
             args.putString("filter", "mentioned")
