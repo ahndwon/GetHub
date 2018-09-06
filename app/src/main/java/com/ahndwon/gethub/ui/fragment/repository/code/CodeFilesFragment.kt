@@ -31,11 +31,11 @@ class CodeFilesFragment : Fragment() {
 
         val fileAdapter = FileListAdapter()
         view.filesRecyclerView.adapter = fileAdapter
-        view.filesRecyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+        view.filesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val dirAdapter = DirectoryListAdapter()
         view.dirRecyclerView.adapter = dirAdapter
-        view.dirRecyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext).apply {
+        view.dirRecyclerView.layoutManager = LinearLayoutManager(requireContext()).apply {
             orientation = LinearLayoutManager.HORIZONTAL
         }
 
@@ -52,7 +52,7 @@ class CodeFilesFragment : Fragment() {
             }
         }
 
-        val githubApi = provideGithubApi(activity!!.applicationContext)
+        val githubApi = provideGithubApi(requireContext())
         var contentsCall = githubApi.getContents(repoOwner, repoName, path)
         contentsCall.enqueue({ response ->
             val statusCode = response.code()

@@ -37,11 +37,8 @@ class RepoListAdapter(private val colorMap: Map<String, LangColor>) : RecyclerVi
                     SimpleDateFormat("MMM d, HH:mm", Locale.getDefault()))
             repoLang.text = item.language
 
-            if (color == null) {
-                repoLangColor.visibility = View.INVISIBLE
-            } else {
-                repoLangColor.setBackgroundColor(Color.parseColor(color))
-            }
+            if (color == null) { repoLangColor.visibility = View.INVISIBLE }
+            else { repoLangColor.setBackgroundColor(Color.parseColor(color)) }
 
             if (!item.private) repoPrivate.visibility = View.GONE
         }

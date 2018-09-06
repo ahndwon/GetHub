@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:name=".utils.CustomApplication"
         android:allowBackup="true"
@@ -18,15 +17,12 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="authorize"
                     android:scheme="githubapp" />
@@ -35,9 +31,6 @@
         <activity
             android:name=".ui.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ui.RepoActivity"
             android:theme="@style/AppTheme" />
     </application>
 

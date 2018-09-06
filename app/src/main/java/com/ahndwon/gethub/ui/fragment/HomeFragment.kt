@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val progressBar = MyProgressBar(activity!!.applicationContext, view.homeFragment)
+        val progressBar = MyProgressBar(requireContext(), view.homeFragment)
         progressBar.view.visibility = View.VISIBLE
 
         val listAdapter = EventListAdapter()
@@ -56,9 +56,9 @@ class HomeFragment : Fragment() {
         }
 
         view.homeRecyclerView.adapter = listAdapter
-        view.homeRecyclerView.layoutManager = LinearLayoutManager(activity!!.applicationContext)
+        view.homeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val eventsApi = provideGithubApi(activity!!.applicationContext)
+        val eventsApi = provideGithubApi(requireContext())
         val eventsCall = eventsApi.getEvents()
         eventsCall.enqueue({ response ->
             progressBar.view.visibility = View.GONE
