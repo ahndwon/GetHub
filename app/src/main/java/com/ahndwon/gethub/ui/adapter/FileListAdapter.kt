@@ -41,10 +41,7 @@ class FileListAdapter : RecyclerView.Adapter<FileViewHolder>() {
             onClick?.let {
                 setOnClickListener(onClick)
             }
-//            setOnClickListener {
-//                val bundle = Bundle()
-//                if(item.type == "dir") bundle.putString("path", item.path)
-//            }
+
 
         }
     }

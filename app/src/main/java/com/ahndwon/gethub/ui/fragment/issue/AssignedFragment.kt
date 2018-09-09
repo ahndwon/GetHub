@@ -16,13 +16,12 @@ class AssignedFragment : Fragment() {
         val TAG = AssignedFragment::class.java.simpleName!!
     }
 
-    lateinit var isPullRequest : String
+    private lateinit var isPullRequest: String
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (arguments != null) {
-            isPullRequest = arguments!!["isPullRequest"].toString()
-        }
+
+        isPullRequest = arguments?.get("isPullRequest").toString()
 
         val view = inflater.inflate(R.layout.fragment_assigned, container, false)
         setupViewPager(view.assignedContainer)

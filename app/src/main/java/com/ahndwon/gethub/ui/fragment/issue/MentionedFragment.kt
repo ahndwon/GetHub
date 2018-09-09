@@ -22,9 +22,8 @@ class MentionedFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (arguments != null) {
-            isPullRequest = arguments!!["isPullRequest"].toString()
-        }
+
+        isPullRequest = arguments?.get("isPullRequest").toString()
 
         val view = inflater.inflate(R.layout.fragment_mentioned, container, false)
 

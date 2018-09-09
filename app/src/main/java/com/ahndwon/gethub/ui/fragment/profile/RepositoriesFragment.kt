@@ -34,7 +34,6 @@ class RepositoriesFragment : Fragment() {
         adapter.onClick = { v ->
             val position = view.reposRecyclerView.getChildAdapterPosition(v)
             val repo = adapter.repos[position]
-//            val item = view.reposRecyclerView.getChildViewHolder(v)
             val intent = Intent(requireContext(), RepoActivity::class.java)
             intent.putExtra("repoName", repo.name)
             intent.putExtra("repoOwner", repo.owner.login)
