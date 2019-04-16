@@ -9,30 +9,30 @@ Developed app to study Retrofit and Rest API.
 
 ## Sign In
 used OAuth
-<img src="./image/signin.jpeg" width="100">
+<img src="./image/signin.jpeg" width="300">
 
 
 ## Sidebar
-<img src="./image/sidebar.jpeg" width="100">
+<img src="./image/sidebar.jpeg" width="300">
 
 
 
 ## Home
-<img src="./image/home.jpeg" width="100">
+<img src="./image/home.jpeg" width="300">
 
 
 
 ## Issue
-<img src="./image/issue.jpeg" width="100">
+<img src="./image/issue.jpeg" width="300">
 
 
 
 ## Profile
-<img src="./image/profile.jpeg" width="100">
+<img src="./image/profile.jpeg" width="300">
 
 
 
 ## Repos
-<img src="./image/reposjpeg" width="100">
+<img src="./image/repos.jpeg" width="300">
 
 
