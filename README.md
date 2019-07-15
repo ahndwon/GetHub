@@ -5,7 +5,7 @@ Android application for Github.
 
 Used Github API V3
 
-Developed app to study OkHttp3, Retrofit2 and Rest API.
+Developed app to study Kotlin, OkHttp3, Retrofit2 and Rest API.
 
 ## Sign In
 used OAuth
